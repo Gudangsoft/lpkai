@@ -61,6 +61,33 @@
                 @endif
             </div>
         </div>
+
+        {{-- Galeri --}}
+        <div class="form-group" style="margin-top:24px;border-top:1px solid var(--border);padding-top:24px;">
+            <label class="form-label"><i class="fas fa-images"></i> Galeri Kegiatan</label>
+            <p style="font-size:0.85rem;color:#64748b;margin-bottom:16px;">Upload beberapa gambar sekaligus. Centang untuk menghapus gambar yang ada.</p>
+
+            @php $galeri = is_array($publikasi->galeri) ? $publikasi->galeri : []; @endphp
+
+            @if(count($galeri) > 0)
+            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+                @foreach($galeri as $img)
+                <div style="position:relative;width:120px;height:120px;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+                    <img src="{{ Storage::url($img) }}" style="width:100%;height:100%;object-fit:cover;">
+                    <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);padding:4px;text-align:center;">
+                        <label style="color:white;font-size:12px;cursor:pointer;display:block;margin:0;">
+                            <input type="checkbox" name="remove_galeri[]" value="{{ $img }}"> Hapus
+                        </label>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
+            <input type="file" name="galeri[]" class="form-control" accept="image/*" multiple id="galeriInput">
+            <small style="color:var(--text-muted);display:block;margin-top:6px;">Bisa memilih banyak file. Maks 4MB per gambar.</small>
+            <div id="galeriPreview" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;"></div>
+        </div>
         <div class="form-group">
             <label class="form-label">URL Video (Opsional)</label>
             <input type="url" name="video_url" class="form-control" value="{{ old('video_url', $publikasi->video_url) }}" placeholder="https://youtube.com/...">
@@ -78,4 +105,25 @@
         </div>
     </form>
 </div>
+@push('scripts')
+<script>
+    const galeriInput = document.getElementById('galeriInput');
+    const galeriPreview = document.getElementById('galeriPreview');
+    if (galeriInput) {
+        galeriInput.addEventListener('change', function () {
+            galeriPreview.innerHTML = '';
+            Array.from(this.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    Object.assign(img.style, { height:'100px', width:'120px', objectFit:'cover', borderRadius:'8px', border:'1px solid #cbd5e1' });
+                    galeriPreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    }
+</script>
+@endpush
 @endsection

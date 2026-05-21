@@ -11,7 +11,7 @@ class Publikasi extends Model
 
     protected $fillable = [
         'judul', 'kategori', 'penulis', 'deskripsi', 'konten',
-        'gambar', 'file_url', 'video_url', 'slug',
+        'gambar', 'galeri', 'file_url', 'video_url', 'slug',
         'tanggal_terbit', 'unggulan', 'aktif',
     ];
 
@@ -19,6 +19,7 @@ class Publikasi extends Model
         'tanggal_terbit' => 'date',
         'unggulan'       => 'boolean',
         'aktif'          => 'boolean',
+        'galeri'         => 'array',
     ];
 
     protected static function boot()

@@ -49,6 +49,14 @@ class PublikasiAdminController extends Controller
             $validated['file_url'] = $request->file('file_upload')->store('publikasi/files', 'public');
         }
 
+        $galeri = [];
+        if ($request->hasFile('galeri')) {
+            foreach ($request->file('galeri') as $file) {
+                $galeri[] = $file->store('publikasi/galeri', 'public');
+            }
+        }
+        $validated['galeri'] = empty($galeri) ? null : $galeri;
+
         Publikasi::create($validated);
         return redirect()->route('admin.publikasi.index')->with('success', 'Publikasi berhasil ditambahkan.');
     }
@@ -72,6 +80,8 @@ class PublikasiAdminController extends Controller
             'unggulan'       => 'nullable|boolean',
             'aktif'          => 'nullable|boolean',
             'gambar'         => 'nullable|image|max:4096',
+            'galeri.*'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'remove_galeri'  => 'nullable|array',
             'file_upload'    => 'nullable|mimes:pdf,doc,docx|max:10240',
         ]);
 
@@ -87,6 +97,23 @@ class PublikasiAdminController extends Controller
             $validated['file_url'] = $request->file('file_upload')->store('publikasi/files', 'public');
         }
 
+        $galeri = is_array($publikasi->galeri) ? $publikasi->galeri : [];
+        if ($request->has('remove_galeri')) {
+            foreach ($request->input('remove_galeri') as $fileToRemove) {
+                if (($key = array_search($fileToRemove, $galeri)) !== false) {
+                    Storage::disk('public')->delete($fileToRemove);
+                    unset($galeri[$key]);
+                }
+            }
+            $galeri = array_values($galeri);
+        }
+        if ($request->hasFile('galeri')) {
+            foreach ($request->file('galeri') as $file) {
+                $galeri[] = $file->store('publikasi/galeri', 'public');
+            }
+        }
+        $validated['galeri'] = empty($galeri) ? null : $galeri;
+
         $publikasi->update($validated);
         return redirect()->route('admin.publikasi.index')->with('success', 'Publikasi berhasil diperbarui.');
     }
@@ -95,6 +122,9 @@ class PublikasiAdminController extends Controller
     {
         if ($publikasi->gambar) Storage::disk('public')->delete($publikasi->gambar);
         if ($publikasi->file_url) Storage::disk('public')->delete($publikasi->file_url);
+        foreach ((is_array($publikasi->galeri) ? $publikasi->galeri : []) as $img) {
+            Storage::disk('public')->delete($img);
+        }
         $publikasi->delete();
         return redirect()->route('admin.publikasi.index')->with('success', 'Publikasi berhasil dihapus.');
     }
