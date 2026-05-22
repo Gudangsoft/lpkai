@@ -28,7 +28,6 @@
                 <th style="width:40px;">#</th>
                 <th>Judul</th>
                 <th>ISSN / Akreditasi</th>
-                <th style="width:120px;">Tanggal Terbit</th>
                 <th style="width:80px;">Status</th>
                 <th style="width:120px;">Aksi</th>
             </tr>
@@ -47,7 +46,6 @@
                 @endif
             </td>
             <td style="color:#64748b;font-size:0.83rem;">{{ $p->issn ?? '-' }}</td>
-            <td style="font-size:0.88rem;">{{ $p->tanggal_terbit ? $p->tanggal_terbit->format('d M Y') : '-' }}</td>
             <td><span class="badge {{ $p->aktif ? 'badge-aktif' : 'badge-nonaktif' }}">{{ $p->aktif ? 'Aktif' : 'Nonaktif' }}</span></td>
             <td>
                 <div class="td-actions">
@@ -61,7 +59,7 @@
         </tr>
         @empty
         <tr>
-            <td colspan="6" style="text-align:center;padding:40px;color:#94a3b8;">
+            <td colspan="5" style="text-align:center;padding:40px;color:#94a3b8;">
                 <i class="fas fa-book-open" style="font-size:2rem;display:block;margin-bottom:10px;color:#cbd5e1;"></i>
                 Belum ada data jurnal ilmiah.
             </td>
