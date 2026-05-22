@@ -754,15 +754,11 @@
                 <div class="pub-body">
                     <span class="pub-tag" style="color:#7c3aed;">Jurnal Ilmiah</span>
                     <h3 class="pub-title">{{ Str::limit($j->judul, 70) }}</h3>
-                    @if($j->penulis)
-                    <p style="font-size:0.82rem;color:#94a3b8;margin-bottom:10px;">
-                        <i class="fas fa-user-edit" style="font-size:0.75rem;"></i> {{ $j->penulis }}
+                    @if($j->issn)
+                    <p style="font-size:0.8rem;color:#64748b;margin-bottom:12px;line-height:1.5;">
+                        <i class="fas fa-barcode" style="font-size:0.75rem;margin-right:4px;"></i>{{ $j->issn }}
                     </p>
                     @endif
-                    <a href="{{ route('publikasi.show', $j->slug) }}"
-                        style="color:#7c3aed;font-weight:600;text-decoration:none;font-size:0.9rem;">
-                        Baca Selengkapnya <i class="fas fa-arrow-right" style="font-size:0.8rem;margin-left:4px;"></i>
-                    </a>
                 </div>
             </article>
             @endforeach

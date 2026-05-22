@@ -10,7 +10,7 @@ class Publikasi extends Model
     protected $table = 'publikasis';
 
     protected $fillable = [
-        'judul', 'kategori', 'penulis', 'deskripsi', 'konten',
+        'judul', 'kategori', 'penulis', 'issn', 'deskripsi', 'konten',
         'gambar', 'galeri', 'file_url', 'video_url', 'slug',
         'tanggal_terbit', 'unggulan', 'aktif',
     ];

@@ -27,7 +27,7 @@
             <tr>
                 <th style="width:40px;">#</th>
                 <th>Judul</th>
-                <th style="width:140px;">Penulis</th>
+                <th>ISSN / Akreditasi</th>
                 <th style="width:120px;">Tanggal Terbit</th>
                 <th style="width:80px;">Status</th>
                 <th style="width:120px;">Aksi</th>
@@ -46,7 +46,7 @@
                 <span style="background:#fef9c3;color:#92400e;font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:50px;margin-left:4px;">Unggulan</span>
                 @endif
             </td>
-            <td style="color:#64748b;font-size:0.88rem;">{{ $p->penulis ?? '-' }}</td>
+            <td style="color:#64748b;font-size:0.83rem;">{{ $p->issn ?? '-' }}</td>
             <td style="font-size:0.88rem;">{{ $p->tanggal_terbit ? $p->tanggal_terbit->format('d M Y') : '-' }}</td>
             <td><span class="badge {{ $p->aktif ? 'badge-aktif' : 'badge-nonaktif' }}">{{ $p->aktif ? 'Aktif' : 'Nonaktif' }}</span></td>
             <td>
