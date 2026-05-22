@@ -44,6 +44,10 @@ class SettingController extends Controller
             // Footer
             'footer_slogan'     => 'nullable|string|max:300',
             'footer_copyright'  => 'nullable|string|max:200',
+            // Journals
+            'journals_gambar'     => 'nullable|image|max:3072',
+            'journals_url'        => 'nullable|url|max:500',
+            'journals_deskripsi'  => 'nullable|string|max:400',
             // Maintenance
             'maintenance_mode'  => 'nullable|boolean',
             'maintenance_pesan' => 'nullable|string|max:500',
@@ -72,8 +76,10 @@ class SettingController extends Controller
             'threads'           => $request->input('threads'),
             'footer_slogan'     => $request->input('footer_slogan'),
             'footer_copyright'  => $request->input('footer_copyright'),
-            'maintenance_mode'  => $request->boolean('maintenance_mode'),
-            'maintenance_pesan' => $request->input('maintenance_pesan'),
+            'journals_url'       => $request->input('journals_url'),
+            'journals_deskripsi' => $request->input('journals_deskripsi'),
+            'maintenance_mode'   => $request->boolean('maintenance_mode'),
+            'maintenance_pesan'  => $request->input('maintenance_pesan'),
         ];
 
         if ($request->hasFile('logo')) {
@@ -84,6 +90,11 @@ class SettingController extends Controller
         if ($request->hasFile('favicon')) {
             if ($profile->favicon) Storage::disk('public')->delete($profile->favicon);
             $data['favicon'] = $request->file('favicon')->store('profile/favicon', 'public');
+        }
+
+        if ($request->hasFile('journals_gambar')) {
+            if ($profile->journals_gambar) Storage::disk('public')->delete($profile->journals_gambar);
+            $data['journals_gambar'] = $request->file('journals_gambar')->store('profile/journals', 'public');
         }
 
         $profile->update($data);

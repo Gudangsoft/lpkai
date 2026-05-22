@@ -105,6 +105,7 @@
     <button class="stab" onclick="showTab('logo',this)"><i class="fas fa-palette"></i> Logo & Favicon</button>
     <button class="stab" onclick="showTab('sosmed',this)"><i class="fas fa-share-alt"></i> Media Sosial</button>
     <button class="stab" onclick="showTab('footer',this)"><i class="fas fa-layer-group"></i> Footer</button>
+    <button class="stab" onclick="showTab('journals',this)"><i class="fas fa-book-open"></i> Journals</button>
     <button class="stab" onclick="showTab('maintenance',this)">
         <i class="fas fa-tools"></i> Maintenance
         @if(isset($profile) && $profile->maintenance_mode)
@@ -412,6 +413,40 @@
         <div><button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Simpan</button></div>
     </div>
 
+    {{-- ══ TAB: JOURNALS ══════════════════════════════════════ --}}
+    <div class="stab-pane" id="pane-journals">
+        <div class="setting-section">
+            <div class="setting-section-title">
+                <div class="setting-icon" style="background:#ede9fe;"><i class="fas fa-book-open" style="color:#7c3aed;"></i></div>
+                <div><h3>LPPSP Journals</h3><p>Gambar promosi dan link jurnal ilmiah LPPSP yang ditampilkan di halaman utama</p></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Gambar Promosi Jurnal</label>
+                <input type="file" name="journals_gambar" class="form-control" accept="image/*"
+                    onchange="previewImg(this,'prevJournals')">
+                @if($profile && $profile->journals_gambar)
+                <img id="prevJournals" src="{{ Storage::url($profile->journals_gambar) }}"
+                    style="max-height:200px;margin-top:10px;border-radius:8px;border:1px solid #e2e8f0;">
+                @else
+                <img id="prevJournals" style="display:none;max-height:200px;margin-top:10px;border-radius:8px;border:1px solid #e2e8f0;">
+                @endif
+                <small style="color:#64748b;margin-top:6px;display:block;">Upload screenshot atau banner jurnal. Maks 3MB.</small>
+            </div>
+            <div class="form-group">
+                <label class="form-label">URL Link Jurnal</label>
+                <input type="url" name="journals_url" class="form-control"
+                    value="{{ old('journals_url', $profile->journals_url ?? 'https://journal.lppspsemarang.org/index.php/Jarvic') }}"
+                    placeholder="https://journal.lppspsemarang.org/...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Deskripsi Singkat <span style="font-weight:400;color:#94a3b8;">(opsional)</span></label>
+                <textarea name="journals_deskripsi" class="form-control" rows="3"
+                    placeholder="Jurnal ilmiah LPPSP yang mempublikasikan hasil kajian dan penelitian kebijakan publik...">{{ old('journals_deskripsi', $profile->journals_deskripsi ?? '') }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Simpan</button>
+        </div>
+    </div>
+
     {{-- ══ TAB: MAINTENANCE ════════════════════════════════════ --}}
     <div class="stab-pane" id="pane-maintenance">
         <div class="setting-section">
@@ -513,7 +548,7 @@ toggle.addEventListener('change', function () {
 
 // Restore active tab from hash
 const hash = window.location.hash.replace('#','');
-if (['umum','kontak','logo','sosmed','footer','maintenance'].includes(hash)) {
+if (['umum','kontak','logo','sosmed','footer','journals','maintenance'].includes(hash)) {
     const btn = document.querySelector(`.stab[onclick*="${hash}"]`);
     if (btn) showTab(hash, btn);
 }

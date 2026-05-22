@@ -541,12 +541,6 @@
         transform: rotate(45deg);
         transition: all 0.6s ease;
     }
-    .layanan-beranda-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(30, 58, 138, 0.25);
-        background: linear-gradient(135deg, #2563eb 0%, var(--primary-blue) 100%);
-    }
-    .layanan-beranda-card:hover::before { left: -30%; top: -30%; }
     .layanan-beranda-icon {
         width: 70px;
         height: 70px;
@@ -562,9 +556,7 @@
         transition: all 0.3s ease;
     }
     .layanan-beranda-card:hover .layanan-beranda-icon {
-        background: var(--white);
-        color: var(--primary-blue);
-        transform: scale(1.1) rotate(5deg);
+        background: rgba(255, 255, 255, 0.15);
     }
     .layanan-beranda-title {
         font-size: 1.1rem;
@@ -742,42 +734,44 @@
     @endif
 
     {{-- ═══ LPPSP JOURNALS ═══ --}}
-    @if($journals && count($journals) > 0)
-    <section class="journals-section">
+    @php $journalUrl = $profile->journals_url ?? 'https://journal.lppspsemarang.org/index.php/Jarvic'; @endphp
+    <section>
         <div class="section-header">
-            <h2 class="section-title" style="color:var(--primary-blue);">LPPSP Journals</h2>
-            <p class="section-subtitle">Publikasi ilmiah dan hasil kajian LPPSP</p>
+            <h2 class="section-title">LPPSP Journals</h2>
+            <p class="section-subtitle">Jurnal ilmiah LPPSP — publikasi hasil kajian dan penelitian kebijakan publik</p>
         </div>
-        <div class="pub-grid">
-            @foreach($journals as $j)
-            <article class="pub-card journal-card" style="cursor:pointer;" onclick="window.location='{{ route('publikasi.show', $j->slug) }}'">
-                @if($j->gambar)
-                <img src="{{ Storage::url($j->gambar) }}" alt="{{ $j->judul }}" class="pub-img">
+        <div style="background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr;box-shadow:var(--shadow-sm);">
+            {{-- Gambar --}}
+            <div style="overflow:hidden;max-height:380px;">
+                @if($profile && $profile->journals_gambar)
+                    <img src="{{ Storage::url($profile->journals_gambar) }}" alt="LPPSP Journals"
+                        style="width:100%;height:100%;object-fit:cover;">
                 @else
-                <div class="pub-img" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);display:flex;align-items:center;justify-content:center;">
-                    <i class="fas fa-book-open" style="font-size:2.5rem;color:rgba(255,255,255,0.6);"></i>
-                </div>
+                    <div style="width:100%;height:380px;background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-book-open" style="font-size:5rem;color:rgba(255,255,255,0.3);"></i>
+                    </div>
                 @endif
-                <div class="pub-body">
-                    <span class="pub-tag" style="color:#7c3aed;">Jurnal Ilmiah</span>
-                    <h3 class="pub-title">{{ Str::limit($j->judul, 70) }}</h3>
-                    @if($j->penulis)
-                    <p style="font-size:0.82rem;color:#94a3b8;margin-bottom:10px;"><i class="fas fa-user-edit" style="font-size:0.75rem;"></i> {{ $j->penulis }}</p>
-                    @endif
-                    <a href="{{ route('publikasi.show', $j->slug) }}" style="color:#7c3aed;font-weight:600;text-decoration:none;font-size:0.9rem;">
-                        Baca Selengkapnya <i class="fas fa-arrow-right" style="font-size:0.8rem;margin-left:4px;"></i>
+            </div>
+            {{-- Konten --}}
+            <div style="padding:40px 36px;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+                <div>
+                    <span style="display:inline-block;background:#ede9fe;color:#7c3aed;font-size:0.75rem;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;">Jurnal Ilmiah</span>
+                    <h3 style="font-size:1.5rem;font-weight:800;color:var(--text-dark);line-height:1.3;margin:0 0 14px;">
+                        JARVIC — Journal of Research and Development on Public Policy
+                    </h3>
+                    <p style="color:var(--text-muted);line-height:1.7;font-size:0.95rem;margin:0;">
+                        {{ $profile->journals_deskripsi ?? 'Jurnal ilmiah LPPSP yang mempublikasikan hasil kajian, penelitian, dan pengembangan kebijakan publik. Terindeks SINTA 5, P-ISSN: 2962-2611, E-ISSN: 2962-262X.' }}
+                    </p>
+                </div>
+                <div>
+                    <a href="{{ $journalUrl }}" target="_blank" rel="noopener"
+                        style="display:inline-flex;align-items:center;gap:10px;background:transparent;color:#1e3a8a;padding:13px 28px;border-radius:12px;font-weight:700;text-decoration:none;border:2px solid #1e3a8a;font-size:0.95rem;transition:all 0.25s;">
+                        <i class="fas fa-external-link-alt"></i> Masuk LPPSP Journals
                     </a>
                 </div>
-            </article>
-            @endforeach
-        </div>
-        <div style="text-align:center;margin-top:20px;">
-            <a href="{{ route('publikasi') }}?kategori=Jurnal+Ilmiah" class="btn-outline" style="border-color:#7c3aed;color:#7c3aed;">
-                Lihat Semua Jurnal
-            </a>
+            </div>
         </div>
     </section>
-    @endif
 
     {{-- ═══ PUBLIKASI TERKINI ═══ --}}
     @if($publikasis && count($publikasis) > 0)

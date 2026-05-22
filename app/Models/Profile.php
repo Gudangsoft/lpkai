@@ -16,6 +16,7 @@ class Profile extends Model
         'maps_embed', 'foto_struktur_organisasi', 'foto_tentang_kami',
         'foto_layanan', 'deskripsi_layanan', 'deskripsi_pengalaman',
         'hero_badge', 'hero_image', 'hero_images',
+        'journals_gambar', 'journals_url', 'journals_deskripsi',
         'legalitas', 'maintenance_mode', 'maintenance_pesan',
     ];
 
