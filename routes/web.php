@@ -59,9 +59,6 @@ Route::middleware('guest')->group(function () {
 
         if (\Illuminate\Support\Facades\Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            if (auth()->user()->role === 'viewer') {
-                return redirect()->route('beranda');
-            }
             return redirect()->intended(route('admin.dashboard'));
         }
 
@@ -69,17 +66,18 @@ Route::middleware('guest')->group(function () {
     })->name('admin.login.post');
 });
 
-// ─── Admin Routes (protected) ─────────────────────────────────────────────────
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin_only'])->group(function () {
+// ─── Admin Routes (semua auth, viewer hanya bisa dashboard) ──────────────────
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/user-profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
+    Route::put('/user-profile', [UserProfileController::class, 'update'])->name('user-profile.update');
+});
 
+// ─── Admin Routes (admin_only) ────────────────────────────────────────────────
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin_only'])->group(function () {
     // Profile
     Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
-
-    // User Profile
-    Route::get('/user-profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
-    Route::put('/user-profile', [UserProfileController::class, 'update'])->name('user-profile.update');
 
     // Manajemen Pengguna
     Route::resource('/users', UserAdminController::class)->except(['show']);
