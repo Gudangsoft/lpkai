@@ -130,7 +130,7 @@
         border:1px solid #e2e8f0; background:#f8fafc;
         display:flex; align-items:center; justify-content:center; min-height:130px;
     }
-    .pub-item-cover img { width:100%; height:130px; object-fit:cover; display:block; }
+    .pub-item-cover img { width:100%; height:130px; object-fit:contain; display:block; background:#f8fafc; }
     .pub-item-cover-book img { height:130px; object-fit:contain; padding:6px; }
     .pub-item-cover-placeholder {
         width:100%; height:130px;
