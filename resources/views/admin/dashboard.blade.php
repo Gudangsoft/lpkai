@@ -272,6 +272,25 @@ a.db-stat:hover {
 
 @section('content')
 
+@if(auth()->user()->role === 'viewer')
+{{-- Viewer Dashboard --}}
+<div style="max-width:560px;margin:60px auto;text-align:center;">
+    <div style="width:80px;height:80px;background:#ede9fe;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem;color:#7c3aed;">
+        <i class="fas fa-globe"></i>
+    </div>
+    <h2 style="font-size:1.6rem;font-weight:800;color:#1e293b;margin-bottom:10px;">
+        Selamat datang, {{ auth()->user()->name }}!
+    </h2>
+    <p style="color:#64748b;font-size:1rem;line-height:1.7;margin-bottom:32px;">
+        Akun Anda memiliki akses <strong>Viewer</strong>.<br>
+        Anda dapat mengunjungi website LPPSP melalui tombol di bawah ini.
+    </p>
+    <a href="{{ route('beranda') }}" target="_blank"
+        style="display:inline-flex;align-items:center;gap:10px;background:#1e3a8a;color:#fff;padding:14px 32px;border-radius:12px;font-weight:700;text-decoration:none;font-size:1rem;box-shadow:0 4px 16px rgba(30,58,138,0.2);">
+        <i class="fas fa-external-link-alt"></i> Lihat Website LPPSP
+    </a>
+</div>
+@else
 {{-- Welcome Banner --}}
 <div class="db-welcome">
     <div class="db-welcome-text">
@@ -486,6 +505,7 @@ a.db-stat:hover {
 
     </div>
 </div>
+@endif {{-- end admin role --}}
 
 @endsection
 

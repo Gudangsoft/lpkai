@@ -38,6 +38,7 @@
                 <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a></li>
+                @if(auth()->user()->role === 'admin')
                 <li><a href="{{ route('admin.profile.edit') }}" class="{{ request()->routeIs('admin.profile*') ? 'active' : '' }}">
                     <i class="fas fa-id-card"></i> Profil Lembaga
                 </a></li>
@@ -100,6 +101,7 @@
                         @endif
                     </a>
                 </li>
+                @endif {{-- end admin role --}}
             </ul>
         </nav>
         <div class="sidebar-footer">
