@@ -771,8 +771,8 @@
         $jTarget = $j->video_url ? '_blank' : '_self';
         $journalUrl = $j->video_url ?: ($profile->journals_url ?? '#');
     @endphp
-    <div class="section-header" style="margin-bottom:12px;">
-        <h2 class="section-title">LPPSP Journals</h2>
+    <div class="section-header" style="margin-bottom:0;">
+        <h2 class="section-title" style="margin-bottom:0;">LPPSP Journals</h2>
     </div>
     <section style="background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);">
         @if($j->gambar)
