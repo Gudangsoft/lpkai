@@ -6,6 +6,7 @@ use App\Models\Layanan;
 use App\Models\Pengalaman;
 use App\Models\Profile;
 use App\Models\Publikasi;
+use App\Models\KategoriPublikasi;
 use App\Models\Testimoni;
 
 class BerandaController extends Controller
@@ -16,9 +17,10 @@ class BerandaController extends Controller
         $layanans   = Layanan::aktif()->take(3)->get();
         $pengalamans = Pengalaman::aktif()->where('unggulan', true)->take(4)->get();
         $testimonis = Testimoni::aktif()->take(3)->get();
-        $publikasis = Publikasi::aktif()->take(3)->get();
+        $publikasis = Publikasi::aktif()->whereNotIn('kategori', ['Jurnal Ilmiah'])->latest()->take(3)->get();
+        $journals   = Publikasi::aktif()->where('kategori', 'Jurnal Ilmiah')->latest()->take(3)->get();
         $kliens     = \App\Models\KlienMitra::aktif()->get();
 
-        return view('beranda', compact('profile', 'layanans', 'pengalamans', 'testimonis', 'publikasis', 'kliens'));
+        return view('beranda', compact('profile', 'layanans', 'pengalamans', 'testimonis', 'publikasis', 'journals', 'kliens'));
     }
 }

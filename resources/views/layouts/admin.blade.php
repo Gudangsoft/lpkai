@@ -62,8 +62,11 @@
                 <li><a href="{{ route('admin.testimoni.index') }}" class="{{ request()->routeIs('admin.testimoni*') ? 'active' : '' }}">
                     <i class="fas fa-quote-left"></i> Testimoni
                 </a></li>
-                <li><a href="{{ route('admin.publikasi.index') }}" class="{{ request()->routeIs('admin.publikasi*') ? 'active' : '' }}">
+                <li><a href="{{ route('admin.publikasi.index') }}" class="{{ request()->routeIs('admin.publikasi*') && !request()->routeIs('admin.kategori-publikasi*') ? 'active' : '' }}">
                     <i class="fas fa-newspaper"></i> Publikasi
+                </a></li>
+                <li><a href="{{ route('admin.kategori-publikasi.index') }}" class="{{ request()->routeIs('admin.kategori-publikasi*') ? 'active' : '' }}">
+                    <i class="fas fa-tags"></i> Kategori Publikasi
                 </a></li>
                 <li><a href="{{ route('admin.kontak.index') }}" class="{{ request()->routeIs('admin.kontak*') ? 'active' : '' }}">
                     <i class="fas fa-envelope"></i> Pesan Kontak

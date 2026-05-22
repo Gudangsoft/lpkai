@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\KategoriPublikasi;
 use App\Models\Publikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +19,7 @@ class PublikasiAdminController extends Controller
 
     public function create()
     {
-        $kategoriList = ['Buku', 'Artikel', 'Berita Kegiatan', 'Foto/Video Kegiatan'];
+        $kategoriList = KategoriPublikasi::aktif()->orderBy('urutan')->pluck('nama');
         return view('admin.publikasi.form', ['publikasi' => new Publikasi, 'kategoriList' => $kategoriList]);
     }
 
@@ -26,7 +27,7 @@ class PublikasiAdminController extends Controller
     {
         $validated = $request->validate([
             'judul'          => 'required|string|max:300',
-            'kategori'       => 'required|in:Buku,Artikel,Berita Kegiatan,Foto/Video Kegiatan',
+            'kategori'       => ['required', 'string', \Illuminate\Validation\Rule::in(KategoriPublikasi::pluck('nama'))],
             'penulis'        => 'nullable|string|max:200',
             'deskripsi'      => 'nullable|string',
             'konten'         => 'nullable|string',
@@ -63,7 +64,7 @@ class PublikasiAdminController extends Controller
 
     public function edit(Publikasi $publikasi)
     {
-        $kategoriList = ['Buku', 'Artikel', 'Berita Kegiatan', 'Foto/Video Kegiatan'];
+        $kategoriList = KategoriPublikasi::aktif()->orderBy('urutan')->pluck('nama');
         return view('admin.publikasi.form', compact('publikasi', 'kategoriList'));
     }
 
@@ -71,7 +72,7 @@ class PublikasiAdminController extends Controller
     {
         $validated = $request->validate([
             'judul'          => 'required|string|max:300',
-            'kategori'       => 'required|in:Buku,Artikel,Berita Kegiatan,Foto/Video Kegiatan',
+            'kategori'       => ['required', 'string', \Illuminate\Validation\Rule::in(KategoriPublikasi::pluck('nama'))],
             'penulis'        => 'nullable|string|max:200',
             'deskripsi'      => 'nullable|string',
             'konten'         => 'nullable|string',

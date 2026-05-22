@@ -741,6 +741,44 @@
     </section>
     @endif
 
+    {{-- ═══ LPPSP JOURNALS ═══ --}}
+    @if($journals && count($journals) > 0)
+    <section class="journals-section">
+        <div class="section-header">
+            <h2 class="section-title" style="color:var(--primary-blue);">LPPSP Journals</h2>
+            <p class="section-subtitle">Publikasi ilmiah dan hasil kajian LPPSP</p>
+        </div>
+        <div class="pub-grid">
+            @foreach($journals as $j)
+            <article class="pub-card journal-card" style="cursor:pointer;" onclick="window.location='{{ route('publikasi.show', $j->slug) }}'">
+                @if($j->gambar)
+                <img src="{{ Storage::url($j->gambar) }}" alt="{{ $j->judul }}" class="pub-img">
+                @else
+                <div class="pub-img" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-book-open" style="font-size:2.5rem;color:rgba(255,255,255,0.6);"></i>
+                </div>
+                @endif
+                <div class="pub-body">
+                    <span class="pub-tag" style="color:#7c3aed;">Jurnal Ilmiah</span>
+                    <h3 class="pub-title">{{ Str::limit($j->judul, 70) }}</h3>
+                    @if($j->penulis)
+                    <p style="font-size:0.82rem;color:#94a3b8;margin-bottom:10px;"><i class="fas fa-user-edit" style="font-size:0.75rem;"></i> {{ $j->penulis }}</p>
+                    @endif
+                    <a href="{{ route('publikasi.show', $j->slug) }}" style="color:#7c3aed;font-weight:600;text-decoration:none;font-size:0.9rem;">
+                        Baca Selengkapnya <i class="fas fa-arrow-right" style="font-size:0.8rem;margin-left:4px;"></i>
+                    </a>
+                </div>
+            </article>
+            @endforeach
+        </div>
+        <div style="text-align:center;margin-top:20px;">
+            <a href="{{ route('publikasi') }}?kategori=Jurnal+Ilmiah" class="btn-outline" style="border-color:#7c3aed;color:#7c3aed;">
+                Lihat Semua Jurnal
+            </a>
+        </div>
+    </section>
+    @endif
+
     {{-- ═══ PUBLIKASI TERKINI ═══ --}}
     @if($publikasis && count($publikasis) > 0)
     <section class="publikasi-recent">

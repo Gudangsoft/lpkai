@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PengalamanAdminController;
 use App\Http\Controllers\Admin\KlienMitraAdminController;
 use App\Http\Controllers\Admin\TestimoniAdminController;
 use App\Http\Controllers\Admin\PublikasiAdminController;
+use App\Http\Controllers\Admin\KategoriPublikasiAdminController;
 use App\Http\Controllers\Admin\KontakAdminController;
 use App\Http\Controllers\Admin\TimOrganisasiAdminController;
 use App\Http\Controllers\Admin\GaleriSliderAdminController;
@@ -87,6 +88,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Publikasi
     Route::resource('/publikasi', PublikasiAdminController::class)->except(['show']);
+
+    // Kategori Publikasi
+    Route::resource('/kategori-publikasi', KategoriPublikasiAdminController::class)->except(['show', 'create', 'edit']);
 
     // Tim Organisasi
     Route::resource('/tim-organisasi', TimOrganisasiAdminController::class)->except(['show']);
