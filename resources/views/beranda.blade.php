@@ -777,7 +777,7 @@
     <section style="background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);">
         @if($j->gambar)
             <img src="{{ Storage::url($j->gambar) }}" alt="{{ $j->judul }}"
-                style="width:100%;display:block;max-height:480px;object-fit:cover;">
+                style="width:100%;display:block;height:auto;">
         @else
             <div style="width:100%;height:360px;background:linear-gradient(135deg,#4c1d95,#7c3aed);display:flex;align-items:center;justify-content:center;">
                 <i class="fas fa-book-open" style="font-size:5rem;color:rgba(255,255,255,0.35);"></i>
