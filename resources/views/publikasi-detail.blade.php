@@ -222,8 +222,16 @@
         </div>
 
         @if($publikasi->video_url)
-        <div style="margin-bottom:28px;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
-            <iframe src="{{ $publikasi->video_url }}" style="width:100%;height:380px;border:0;display:block;" allowfullscreen></iframe>
+        @php
+            $videoSrc = $publikasi->video_url;
+            if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $videoSrc, $m)) {
+                $videoSrc = 'https://www.youtube.com/embed/' . $m[1];
+            } elseif (preg_match('/vimeo\.com\/(\d+)/i', $videoSrc, $m)) {
+                $videoSrc = 'https://player.vimeo.com/video/' . $m[1];
+            }
+        @endphp
+        <div style="margin-bottom:28px;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);position:relative;padding-top:56.25%;">
+            <iframe src="{{ $videoSrc }}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         </div>
         @endif
 
