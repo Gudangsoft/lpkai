@@ -18,8 +18,13 @@ class PublikasiController extends Controller
         }
 
         $publikasis  = $query->paginate(9)->appends(['kategori' => $kategori]);
-        $kategoris   = KategoriPublikasi::aktif()->orderBy('urutan')->get();
-        $countPerKat = Publikasi::aktif()
+        try {
+            $kategoris = KategoriPublikasi::aktif()->orderBy('urutan')->get();
+        } catch (\Exception $e) {
+            $kategoris = collect();
+        }
+
+        $countPerKat = Publikasi::where('aktif', true)
             ->whereNotIn('kategori', ['Jurnal Ilmiah'])
             ->selectRaw('kategori, count(*) as total')
             ->groupBy('kategori')
