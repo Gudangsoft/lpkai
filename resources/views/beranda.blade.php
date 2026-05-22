@@ -743,7 +743,8 @@
         </div>
         <div class="pub-grid">
             @foreach($journals as $j)
-            <article class="pub-card" style="cursor:pointer;" onclick="window.location='{{ route('publikasi.show', $j->slug) }}'">
+            @php $jLink = $j->video_url ?: route('publikasi.show', $j->slug); $jTarget = $j->video_url ? '_blank' : '_self'; @endphp
+            <article class="pub-card" style="cursor:pointer;" onclick="window.open('{{ $jLink }}','{{ $jTarget }}')">
                 @if($j->gambar)
                     <img src="{{ Storage::url($j->gambar) }}" alt="{{ $j->judul }}" class="pub-img">
                 @else
@@ -758,6 +759,11 @@
                     <p style="font-size:0.8rem;color:#64748b;margin-bottom:12px;line-height:1.5;">
                         <i class="fas fa-barcode" style="font-size:0.75rem;margin-right:4px;"></i>{{ $j->issn }}
                     </p>
+                    @endif
+                    @if($j->video_url)
+                    <span style="color:#7c3aed;font-weight:600;font-size:0.9rem;">
+                        Buka Jurnal <i class="fas fa-external-link-alt" style="font-size:0.8rem;"></i>
+                    </span>
                     @endif
                 </div>
             </article>

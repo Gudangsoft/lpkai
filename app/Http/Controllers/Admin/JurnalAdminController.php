@@ -37,10 +37,11 @@ class JurnalAdminController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'judul'  => 'required|string|max:300',
-            'issn'   => 'nullable|string|max:100',
-            'aktif'  => 'nullable|boolean',
-            'gambar' => 'nullable|image|max:4096',
+            'judul'     => 'required|string|max:300',
+            'issn'      => 'nullable|string|max:100',
+            'video_url' => 'nullable|url|max:300',
+            'aktif'     => 'nullable|boolean',
+            'gambar'    => 'nullable|image|max:4096',
         ]);
 
         $validated['kategori'] = self::KATEGORI;
@@ -63,10 +64,11 @@ class JurnalAdminController extends Controller
     public function update(Request $request, Publikasi $jurnal)
     {
         $validated = $request->validate([
-            'judul'  => 'required|string|max:300',
-            'issn'   => 'nullable|string|max:100',
-            'aktif'  => 'nullable|boolean',
-            'gambar' => 'nullable|image|max:4096',
+            'judul'     => 'required|string|max:300',
+            'issn'      => 'nullable|string|max:100',
+            'video_url' => 'nullable|url|max:300',
+            'aktif'     => 'nullable|boolean',
+            'gambar'    => 'nullable|image|max:4096',
         ]);
 
         $validated['kategori'] = self::KATEGORI;

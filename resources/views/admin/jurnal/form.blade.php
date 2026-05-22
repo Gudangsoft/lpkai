@@ -33,6 +33,14 @@
         </div>
 
         <div class="form-group">
+            <label class="form-label">Link Jurnal</label>
+            <input type="url" name="video_url" class="form-control @error('video_url') is-invalid @enderror"
+                value="{{ old('video_url', $publikasi->video_url) }}"
+                placeholder="Contoh: https://journal.lppspsemarang.org/index.php/Jarvic">
+            @error('video_url')<span class="invalid-feedback">{{ $message }}</span>@enderror
+        </div>
+
+        <div class="form-group">
             <label class="form-label">Gambar Cover Jurnal</label>
             <input type="file" name="gambar" class="form-control" accept="image/*"
                 onchange="previewCover(this)">
