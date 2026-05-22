@@ -62,12 +62,26 @@
                 <li><a href="{{ route('admin.testimoni.index') }}" class="{{ request()->routeIs('admin.testimoni*') ? 'active' : '' }}">
                     <i class="fas fa-quote-left"></i> Testimoni
                 </a></li>
-                <li><a href="{{ route('admin.publikasi.index') }}" class="{{ request()->routeIs('admin.publikasi*') && !request()->routeIs('admin.kategori-publikasi*') ? 'active' : '' }}">
-                    <i class="fas fa-newspaper"></i> Publikasi
-                </a></li>
-                <li><a href="{{ route('admin.kategori-publikasi.index') }}" class="{{ request()->routeIs('admin.kategori-publikasi*') ? 'active' : '' }}">
-                    <i class="fas fa-tags"></i> Kategori Publikasi
-                </a></li>
+                @php
+                    $pubGroupActive = request()->routeIs('admin.publikasi*') || request()->routeIs('admin.jurnal*') || request()->routeIs('admin.kategori-publikasi*');
+                @endphp
+                <li class="nav-group {{ $pubGroupActive ? 'open' : '' }}">
+                    <button class="nav-group-toggle" onclick="toggleNavGroup(this)">
+                        <span><i class="fas fa-newspaper"></i> Publikasi</span>
+                        <i class="fas fa-chevron-down nav-group-arrow"></i>
+                    </button>
+                    <ul class="nav-sub">
+                        <li><a href="{{ route('admin.publikasi.index') }}" class="{{ request()->routeIs('admin.publikasi*') && !request()->routeIs('admin.kategori-publikasi*') ? 'active' : '' }}">
+                            <i class="fas fa-list"></i> Semua Publikasi
+                        </a></li>
+                        <li><a href="{{ route('admin.jurnal.index') }}" class="{{ request()->routeIs('admin.jurnal*') ? 'active' : '' }}">
+                            <i class="fas fa-book-open"></i> Jurnal Ilmiah
+                        </a></li>
+                        <li><a href="{{ route('admin.kategori-publikasi.index') }}" class="{{ request()->routeIs('admin.kategori-publikasi*') ? 'active' : '' }}">
+                            <i class="fas fa-tags"></i> Kategori
+                        </a></li>
+                    </ul>
+                </li>
                 <li><a href="{{ route('admin.kontak.index') }}" class="{{ request()->routeIs('admin.kontak*') ? 'active' : '' }}">
                     <i class="fas fa-envelope"></i> Pesan Kontak
                     @php $pesanBaru = \App\Models\Kontak::where('sudah_dibaca', false)->count(); @endphp
@@ -117,6 +131,11 @@
 </div>
 
 <script src="{{ asset('js/admin.js') }}"></script>
+<script>
+function toggleNavGroup(btn) {
+    btn.closest('.nav-group').classList.toggle('open');
+}
+</script>
 @stack('scripts')
 </body>
 </html>

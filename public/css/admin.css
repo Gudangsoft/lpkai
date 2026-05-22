@@ -49,6 +49,34 @@ body { font-family: 'Inter', sans-serif; }
 .sidebar-nav ul li a.active i {
     color: #f5a623;
 }
+/* ── Nav submenu group ─────────────────────────── */
+.nav-group-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; padding: 12px 18px;
+    background: transparent; border: none; cursor: pointer;
+    color: rgba(255,255,255,.75); font-size: .95rem; font-weight: 500;
+    border-radius: 12px; transition: all .2s; text-align: left;
+}
+.nav-group-toggle:hover { background: rgba(255,255,255,.1); color: white; }
+.nav-group-toggle span { display: flex; align-items: center; gap: 14px; }
+.nav-group-toggle span i { font-size: 1.15rem; width: 24px; text-align: center; }
+.nav-group-arrow { font-size: .7rem !important; width: auto !important; transition: transform .25s; }
+.nav-group.open .nav-group-arrow { transform: rotate(180deg); }
+.nav-group.open .nav-group-toggle { color: white; }
+.nav-sub {
+    list-style: none; overflow: hidden;
+    max-height: 0; transition: max-height .3s ease;
+    padding-left: 14px; margin-top: 2px;
+}
+.nav-group.open .nav-sub { max-height: 200px; }
+.nav-sub li { margin-bottom: 2px; }
+.nav-sub li a {
+    padding: 9px 14px !important; font-size: .88rem !important;
+    border-left: 2px solid rgba(255,255,255,.1);
+}
+.nav-sub li a.active { border-left-color: #f5a623; }
+/* ─────────────────────────────────────────────── */
+
 .badge-count {
     background: #e53e3e; color: white; font-size: .7rem; font-weight: 700;
     min-width: 20px; height: 20px; border-radius: 10px;
