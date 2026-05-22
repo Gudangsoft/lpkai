@@ -55,10 +55,10 @@
         letter-spacing: 0.2px;
     }
     .tk-box-body {
-        padding: 24px 28px;
+        padding: 32px 28px;
         flex: 1;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
     }
 
     /* ── Top Section ──────────────────────────────────── */
@@ -630,7 +630,7 @@
                 <h3 class="tk-box-title">Visi</h3>
             </div>
             <div class="tk-box-body">
-                <p style="color:#374151;line-height:1.9;font-size:1.2rem;font-weight:500;font-style:italic;">
+                <p style="color:#374151;line-height:1.9;font-size:1.35rem;font-weight:500;font-style:italic;">
                     {{ isset($profile) && $profile->visi ? $profile->visi : 'Menjadi lembaga yang handal dalam pengkajian dan pengembangan sumberdaya pembangunan berlandaskan profesionalisme dan integritas.' }}
                 </p>
             </div>
