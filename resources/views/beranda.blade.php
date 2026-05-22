@@ -773,7 +773,6 @@
     @endphp
     <div class="section-header">
         <h2 class="section-title">LPPSP Journals</h2>
-        <p class="section-subtitle">Publikasi jurnal ilmiah hasil kajian dan penelitian LPPSP</p>
     </div>
     <section style="background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);">
         @if($j->gambar)
