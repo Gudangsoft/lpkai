@@ -58,7 +58,7 @@
         padding: 32px 28px;
         flex: 1;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
     }
 
     /* ── Top Section ──────────────────────────────────── */
