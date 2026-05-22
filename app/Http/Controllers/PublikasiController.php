@@ -11,13 +11,18 @@ class PublikasiController extends Controller
     public function index(Request $request)
     {
         $kategori  = $request->get('kategori', 'semua');
+        $q         = $request->get('q');
         $query     = Publikasi::aktif()->whereNotIn('kategori', ['Jurnal Ilmiah']);
 
         if ($kategori !== 'semua') {
             $query->where('kategori', $kategori);
         }
 
-        $publikasis  = $query->paginate(9)->appends(['kategori' => $kategori]);
+        if ($q) {
+            $query->where('judul', 'like', '%' . $q . '%');
+        }
+
+        $publikasis  = $query->paginate(9)->appends(['kategori' => $kategori, 'q' => $q]);
         try {
             $kategoris = KategoriPublikasi::aktif()->orderBy('urutan')->get();
         } catch (\Exception $e) {
