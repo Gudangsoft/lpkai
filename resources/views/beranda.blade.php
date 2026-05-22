@@ -733,61 +733,11 @@
     </section>
     @endif
 
-    {{-- ═══ LPPSP JOURNALS ═══ --}}
-    @if($journals && count($journals) > 0)
-    @php
-        $j = $journals->first();
-        $jLink = $j->video_url ?: route('publikasi.show', $j->slug);
-        $jTarget = $j->video_url ? '_blank' : '_self';
-        $journalUrl = $j->video_url ?: ($profile->journals_url ?? '#');
-    @endphp
-    <div class="section-header">
-        <h2 class="section-title">LPPSP Journals</h2>
-        <p class="section-subtitle">Publikasi jurnal ilmiah hasil kajian dan penelitian LPPSP</p>
-    </div>
-    <section style="background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);">
-        {{-- Gambar full lebar --}}
-        @if($j->gambar)
-            <img src="{{ Storage::url($j->gambar) }}" alt="{{ $j->judul }}"
-                style="width:100%;display:block;max-height:480px;object-fit:cover;">
-        @else
-            <div style="width:100%;height:360px;background:linear-gradient(135deg,#4c1d95,#7c3aed);display:flex;align-items:center;justify-content:center;">
-                <i class="fas fa-book-open" style="font-size:5rem;color:rgba(255,255,255,0.35);"></i>
-            </div>
-        @endif
-        {{-- Konten di bawah gambar --}}
-        <div style="padding:32px 40px 36px;">
-            <h2 style="font-size:1.6rem;font-weight:800;color:#1e1b4b;line-height:1.3;margin:0 0 10px;">{{ $j->judul }}</h2>
-            @if($j->issn)
-            <p style="font-size:0.9rem;color:#6d28d9;margin:0 0 12px;font-weight:500;">
-                <i class="fas fa-barcode" style="margin-right:6px;"></i>{{ $j->issn }}
-            </p>
-            @endif
-            <p style="color:#475569;line-height:1.7;margin:0 0 24px;font-size:0.95rem;">
-                @if($j->deskripsi){{ Str::limit($j->deskripsi, 220) }}
-                @else Jurnal ilmiah LPPSP yang mempublikasikan hasil kajian dan penelitian di bidang kebijakan publik dan pembangunan daerah.
-                @endif
-            </p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                <a href="{{ $journalUrl }}" target="{{ $jTarget }}" rel="noopener"
-                    style="display:inline-flex;align-items:center;gap:8px;background:#7c3aed;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:0.9rem;">
-                    <i class="fas fa-external-link-alt"></i> Masuk LPPSP Journals
-                </a>
-                <a href="{{ route('publikasi') }}?kategori=Jurnal+Ilmiah"
-                    style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#7c3aed;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:0.9rem;border:2px solid #7c3aed;">
-                    Lihat Semua Jurnal
-                </a>
-            </div>
-        </div>
-    </section>
-    @endif
-
     {{-- ═══ PUBLIKASI TERKINI ═══ --}}
     @if($publikasis && count($publikasis) > 0)
     <section class="publikasi-recent">
         <div class="section-header">
             <h2 class="section-title">Publikasi Terkini</h2>
-            
         </div>
         <div class="pub-grid">
             @foreach($publikasis as $pub)
@@ -809,6 +759,47 @@
         </div>
         <div style="text-align: center; margin-top: 20px;">
             <a href="{{ route('publikasi') }}" class="btn-outline">Lihat Semua Publikasi</a>
+        </div>
+    </section>
+    @endif
+
+    {{-- ═══ LPPSP JOURNALS ═══ --}}
+    @if($journals && count($journals) > 0)
+    @php
+        $j = $journals->first();
+        $jLink = $j->video_url ?: route('publikasi.show', $j->slug);
+        $jTarget = $j->video_url ? '_blank' : '_self';
+        $journalUrl = $j->video_url ?: ($profile->journals_url ?? '#');
+    @endphp
+    <div class="section-header">
+        <h2 class="section-title">LPPSP Journals</h2>
+        <p class="section-subtitle">Publikasi jurnal ilmiah hasil kajian dan penelitian LPPSP</p>
+    </div>
+    <section style="background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);">
+        @if($j->gambar)
+            <img src="{{ Storage::url($j->gambar) }}" alt="{{ $j->judul }}"
+                style="width:100%;display:block;max-height:480px;object-fit:cover;">
+        @else
+            <div style="width:100%;height:360px;background:linear-gradient(135deg,#4c1d95,#7c3aed);display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-book-open" style="font-size:5rem;color:rgba(255,255,255,0.35);"></i>
+            </div>
+        @endif
+        <div style="padding:32px 40px 36px;">
+            <h2 style="font-size:1.6rem;font-weight:800;color:#1e1b4b;line-height:1.3;margin:0 0 10px;">{{ $j->judul }}</h2>
+            @if($j->issn)
+            <p style="font-size:0.9rem;color:#6d28d9;margin:0 0 12px;font-weight:500;">
+                <i class="fas fa-barcode" style="margin-right:6px;"></i>{{ $j->issn }}
+            </p>
+            @endif
+            <p style="color:#475569;line-height:1.7;margin:0 0 24px;font-size:0.95rem;">
+                @if($j->deskripsi){{ Str::limit($j->deskripsi, 220) }}
+                @else Jurnal ilmiah LPPSP yang mempublikasikan hasil kajian dan penelitian di bidang kebijakan publik dan pembangunan daerah.
+                @endif
+            </p>
+            <a href="{{ $journalUrl }}" target="{{ $jTarget }}" rel="noopener"
+                style="display:inline-flex;align-items:center;gap:8px;background:#7c3aed;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:0.9rem;">
+                <i class="fas fa-external-link-alt"></i> Masuk LPPSP Journals
+            </a>
         </div>
     </section>
     @endif
