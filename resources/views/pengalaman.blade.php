@@ -418,40 +418,6 @@
         </div>
     </div>
 
-    <!-- Keunggulan LPPSP -->
-    <div class="tk-box" style="padding:10px 0;">
-        <h3 class="tk-box-title">Keunggulan LPPSP</h3>
-        <div class="ku-grid">
-            <div class="ku-box">
-                <ul class="ku-list">
-                    <li>
-                        <strong>Evidence-Based Analytical Capacity</strong>
-                        <p>Memiliki kapasitas pengkajian berbasis analisis yang kuat, kontekstual, dan berorientasi pada kebutuhan riil di lapangan.</p>
-                    </li>
-                    <li>
-                        <strong>Proven Experience in Development and Governance</strong>
-                        <p>Berpengalaman dalam pendampingan pembangunan daerah, penguatan tata kelola pemerintahan, dan pemberdayaan masyarakat.</p>
-                    </li>
-                </ul>
-            </div>
-            <div class="ku-box">
-                <ul class="ku-list">
-                    <li>
-                        <strong>Integrated Service Ecosystem</strong>
-                        <p>Menghadirkan layanan terintegrasi yang mencakup riset, pendampingan, pelatihan, dan advokasi dalam satu kerangka yang sinergis.</p>
-                    </li>
-                    <li>
-                        <strong>Applied and Participatory Solutions</strong>
-                        <p>Menghasilkan solusi yang implementatif, partisipatif, dan relevan untuk menjawab kebutuhan kelembagaan dan masyarakat.</p>
-                    </li>
-                    <li>
-                        <strong>Commitment to Integrity and Excellence</strong>
-                        <p>Menjunjung tinggi profesionalisme, integritas, dan standar mutu tinggi dalam setiap layanan.</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
 </div>
 

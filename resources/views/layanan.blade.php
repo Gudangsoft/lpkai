@@ -286,7 +286,7 @@
 
         <!-- Keunggulan LPPSP -->
         <div class="tk-box" style="padding: 10px 0;">
-            <h3 class="tk-box-title">Keunggulan LPPSP</h3>
+            <h3 class="tk-box-title" style="text-align:center;">Keunggulan LPPSP</h3>
             <div class="ku-grid">
                 <div class="ku-box">
                     <ul class="ku-list">
