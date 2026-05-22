@@ -20,6 +20,8 @@
         box-shadow: 0 4px 20px rgba(13,43,94,0.08), 0 1px 4px rgba(0,0,0,0.04);
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
     }
     .tk-box:hover {
         transform: translateY(-4px);
@@ -54,6 +56,9 @@
     }
     .tk-box-body {
         padding: 24px 28px;
+        flex: 1;
+        display: flex;
+        align-items: center;
     }
 
     /* ── Top Section ──────────────────────────────────── */
@@ -625,7 +630,7 @@
                 <h3 class="tk-box-title">Visi</h3>
             </div>
             <div class="tk-box-body">
-                <p style="color:#374151;line-height:1.8;font-size:0.95rem;">
+                <p style="color:#374151;line-height:1.9;font-size:1.2rem;font-weight:500;font-style:italic;">
                     {{ isset($profile) && $profile->visi ? $profile->visi : 'Menjadi lembaga yang handal dalam pengkajian dan pengembangan sumberdaya pembangunan berlandaskan profesionalisme dan integritas.' }}
                 </p>
             </div>
