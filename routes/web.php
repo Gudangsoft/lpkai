@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\TimOrganisasiAdminController;
 use App\Http\Controllers\Admin\GaleriSliderAdminController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserProfileController;
+use App\Http\Controllers\Admin\UserAdminController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Public Routes ────────────────────────────────────────────────────────────
@@ -38,6 +39,13 @@ Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
 
 // ─── Auth Routes ──────────────────────────────────────────────────────────────
+Route::post('/admin/logout', function (\Illuminate\Http\Request $request) {
+    \Illuminate\Support\Facades\Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect()->route('admin.login');
+})->name('admin.logout')->middleware('auth');
+
 Route::middleware('guest')->group(function () {
     Route::get('/admin/login', function () {
         return view('admin.auth.login');
@@ -51,6 +59,9 @@ Route::middleware('guest')->group(function () {
 
         if (\Illuminate\Support\Facades\Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+            if (auth()->user()->role === 'viewer') {
+                return redirect()->route('beranda');
+            }
             return redirect()->intended(route('admin.dashboard'));
         }
 
@@ -59,7 +70,7 @@ Route::middleware('guest')->group(function () {
 });
 
 // ─── Admin Routes (protected) ─────────────────────────────────────────────────
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin_only'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Profile
@@ -70,6 +81,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/user-profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
     Route::put('/user-profile', [UserProfileController::class, 'update'])->name('user-profile.update');
 
+    // Manajemen Pengguna
+    Route::resource('/users', UserAdminController::class)->except(['show']);
 
     // Layanan
     Route::resource('/layanan', LayananAdminController::class)->except(['show']);
@@ -111,11 +124,4 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/kontak/{kontak}', [KontakAdminController::class, 'show'])->name('kontak.show');
     Route::delete('/kontak/{kontak}', [KontakAdminController::class, 'destroy'])->name('kontak.destroy');
 
-    // Logout
-    Route::post('/logout', function (\Illuminate\Http\Request $request) {
-        \Illuminate\Support\Facades\Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
-    })->name('logout');
 });

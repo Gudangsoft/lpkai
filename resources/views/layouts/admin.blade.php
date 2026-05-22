@@ -82,6 +82,9 @@
                         </a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+                    <i class="fas fa-users-cog"></i> Pengguna
+                </a></li>
                 <li><a href="{{ route('admin.kontak.index') }}" class="{{ request()->routeIs('admin.kontak*') ? 'active' : '' }}">
                     <i class="fas fa-envelope"></i> Pesan Kontak
                     @php $pesanBaru = \App\Models\Kontak::where('sudah_dibaca', false)->count(); @endphp
