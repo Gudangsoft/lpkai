@@ -283,11 +283,11 @@ a.db-stat:hover {
     </h2>
     <p style="color:#64748b;font-size:1rem;line-height:1.7;margin-bottom:32px;">
         Akun Anda memiliki akses <strong>Viewer</strong>.<br>
-        Anda dapat mengunjungi website LPPSP melalui tombol di bawah ini.
+        Anda dapat mengunjungi website {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }} melalui tombol di bawah ini.
     </p>
     <a href="{{ route('beranda') }}" target="_blank"
         style="display:inline-flex;align-items:center;gap:10px;background:#1e3a8a;color:#fff;padding:14px 32px;border-radius:12px;font-weight:700;text-decoration:none;font-size:1rem;box-shadow:0 4px 16px rgba(30,58,138,0.2);">
-        <i class="fas fa-external-link-alt"></i> Lihat Website LPPSP
+        <i class="fas fa-external-link-alt"></i> Lihat Website {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}
     </a>
 </div>
 @else

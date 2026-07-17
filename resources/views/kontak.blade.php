@@ -227,9 +227,9 @@
 
     <!-- Top Section -->
     <div class="tk-top-section">
-        <h2 class="tk-box-title">Kontak LPPSP</h2>
+        <h2 class="tk-box-title">Kontak {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}</h2>
         <p class="tk-top-desc">
-            Mari Bermitra!!! LPPSP membuka peluang kerjasama dalam layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
+            Mari Bermitra!!! {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }} membuka peluang kerjasama dalam layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
         </p>
     </div>
 

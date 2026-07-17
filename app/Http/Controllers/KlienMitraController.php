@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KlienMitra;
 use App\Models\Pengalaman;
+use App\Models\Profile;
 
 class KlienMitraController extends Controller
 {
@@ -104,7 +105,9 @@ class KlienMitraController extends Controller
             ];
         }
 
-        return view('klien-mitra', compact('grouped', 'kategoriOrder', 'pengalamanMap', 'allClientData'));
+        $profile = Profile::first();
+
+        return view('klien-mitra', compact('grouped', 'kategoriOrder', 'pengalamanMap', 'allClientData', 'profile'));
     }
 
     /**

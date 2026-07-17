@@ -34,7 +34,16 @@
                 </td>
                 <td style="max-width:260px;"><small style="color:#4a5568;">{{ Str::limit($t->bio, 80) }}</small></td>
                 <td style="text-align:center;">{{ $t->urutan }}</td>
-                <td><span class="badge {{ $t->aktif ? 'badge-aktif' : 'badge-nonaktif' }}">{{ $t->aktif ? 'Aktif' : 'Nonaktif' }}</span></td>
+                <td>
+                    <form action="{{ route('admin.tim-organisasi.toggle-aktif', $t) }}" method="POST" style="display:inline;">
+                        @csrf @method('PATCH')
+                        <label class="toggle-switch" title="{{ $t->aktif ? 'Tampil di website' : 'Tersembunyi dari website' }}">
+                            <input type="checkbox" onchange="this.form.submit()" {{ $t->aktif ? 'checked' : '' }}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </form>
+                    <div style="font-size:0.72rem;color:#94a3b8;margin-top:2px;">{{ $t->aktif ? 'Tampil' : 'Tersembunyi' }}</div>
+                </td>
                 <td>
                     <div class="td-actions">
                         <a href="{{ route('admin.tim-organisasi.edit', $t) }}" class="btn-icon btn-edit"><i class="fas fa-edit"></i> Edit</a>

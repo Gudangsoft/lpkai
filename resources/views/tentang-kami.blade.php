@@ -568,7 +568,7 @@
     <div class="tk-top-section">
         <div>
             @if(isset($profile) && $profile->foto_tentang_kami)
-                <img src="{{ Storage::url($profile->foto_tentang_kami) }}" alt="Tentang Kami LPPSP" style="width:100%; height:240px; object-fit:cover; border-radius:12px;">
+                <img src="{{ Storage::url($profile->foto_tentang_kami) }}" alt="Tentang Kami {{ $profile->singkatan ?? 'LPPSP' }}" style="width:100%; height:240px; object-fit:cover; border-radius:12px;">
             @else
                 <div class="tk-top-img-placeholder">
                     <span><i class="fas fa-building" style="font-size:2.5rem;display:block;margin-bottom:10px;opacity:0.4;"></i>Foto Tentang Kami</span>
@@ -581,7 +581,7 @@
                 <h2 style="font-size:1.8rem;font-weight:800;color:#ffffff;margin:0;line-height:1.2;">Tentang Kami</h2>
             </div>
             <p style="color:rgba(255,255,255,0.88);line-height:1.8;font-size:1.05rem;">
-                {{ isset($profile) && $profile->tentang_kami ? strip_tags($profile->tentang_kami) : 'LPPSP adalah lembaga profesional yang berkomitmen pada pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, serta penguatan tata kelola pemerintahan yang baik.' }}
+                {{ isset($profile) && $profile->tentang_kami ? strip_tags($profile->tentang_kami) : (isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP') . ' adalah lembaga profesional yang berkomitmen pada pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, serta penguatan tata kelola pemerintahan yang baik.' }}
             </p>
         </div>
     </div>
@@ -591,7 +591,7 @@
         <div class="tk-box">
             <div class="tk-box-header">
                 <div class="tk-box-header-icon"><i class="fas fa-landmark"></i></div>
-                <h3 class="tk-box-title">Profil LPPSP</h3>
+                <h3 class="tk-box-title">Profil {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}</h3>
             </div>
             <div class="tk-box-body">
                 <p style="color:#374151;line-height:1.8;font-size:0.95rem;text-align:justify;">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Publikasi;
 use App\Models\KategoriPublikasi;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class PublikasiController extends Controller
@@ -35,7 +36,9 @@ class PublikasiController extends Controller
             ->groupBy('kategori')
             ->pluck('total', 'kategori');
 
-        return view('publikasi', compact('publikasis', 'kategori', 'kategoris', 'countPerKat'));
+        $profile = Profile::first();
+
+        return view('publikasi', compact('publikasis', 'kategori', 'kategoris', 'countPerKat', 'profile'));
     }
 
     public function show(Publikasi $publikasi)

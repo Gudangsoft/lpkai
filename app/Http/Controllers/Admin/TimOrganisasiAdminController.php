@@ -76,6 +76,12 @@ class TimOrganisasiAdminController extends Controller
         return redirect()->route('admin.tim-organisasi.index')->with('success', 'Data anggota tim berhasil diperbarui.');
     }
 
+    public function toggleAktif(TimOrganisasi $timOrganisasi)
+    {
+        $timOrganisasi->update(['aktif' => ! $timOrganisasi->aktif]);
+        return redirect()->route('admin.tim-organisasi.index')->with('success', 'Status tampil anggota tim berhasil diperbarui.');
+    }
+
     public function destroy(TimOrganisasi $timOrganisasi)
     {
         if ($timOrganisasi->foto) Storage::disk('public')->delete($timOrganisasi->foto);

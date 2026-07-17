@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Klien & Mitra')
-@section('description', 'Jejaring kerjasama LPPSP bersama Kementerian/Lembaga, Pemerintah Daerah, Lembaga Pendidikan, Dunia Usaha, dan mitra pembangunan lainnya.')
+@section('description', 'Jejaring kerjasama ' . (isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP') . ' bersama Kementerian/Lembaga, Pemerintah Daerah, Lembaga Pendidikan, Dunia Usaha, dan mitra pembangunan lainnya.')
 
 @push('styles')
 <style>
@@ -306,7 +306,7 @@
         <div class="km-top-box">
             <h2 class="km-top-title">Klien &amp; Mitra</h2>
             <p class="km-top-desc">
-                LPPSP menjalin kerjasama dengan berbagai instansi pemerintah, lembaga pendidikan, dunia usaha, dan mitra pembangunan dalam layanan pengkajian, pengembangan sumberdaya, pemberdayaan masyarakat, serta penguatan tata kelola pemerintahan pada bidang sosial, pembangunan daerah, kemanusiaan, dan keagamaan.
+                {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }} menjalin kerjasama dengan berbagai instansi pemerintah, lembaga pendidikan, dunia usaha, dan mitra pembangunan dalam layanan pengkajian, pengembangan sumberdaya, pemberdayaan masyarakat, serta penguatan tata kelola pemerintahan pada bidang sosial, pembangunan daerah, kemanusiaan, dan keagamaan.
             </p>
         </div>
 

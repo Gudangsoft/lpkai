@@ -238,7 +238,7 @@
                 @if(isset($profile) && $profile->deskripsi_layanan)
                     {!! nl2br(e($profile->deskripsi_layanan)) !!}
                 @else
-                    LPPSP menyediakan layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan
+                    {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }} menyediakan layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan
                     penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan,
                     bidang kemanusiaan, dan bidang keagamaan.
                 @endif
@@ -286,7 +286,7 @@
 
         <!-- Keunggulan LPPSP -->
         <div class="tk-box" style="padding: 10px 0;">
-            <h3 class="tk-box-title" style="text-align:center;">Keunggulan LPPSP</h3>
+            <h3 class="tk-box-title" style="text-align:center;">Keunggulan {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}</h3>
             <div class="ku-grid">
                 <div class="ku-box">
                     <ul class="ku-list">

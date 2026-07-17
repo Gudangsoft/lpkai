@@ -225,8 +225,8 @@
 
 <div class="buku-hero">
     <div class="buku-hero-inner">
-        <h1><i class="fas fa-book" style="margin-right:10px;opacity:0.8;"></i>Buku LPPSP</h1>
-        <p>Koleksi buku hasil kajian, penelitian, dan dokumentasi pengetahuan kelembagaan LPPSP.</p>
+        <h1><i class="fas fa-book" style="margin-right:10px;opacity:0.8;"></i>Buku {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}</h1>
+        <p>Koleksi buku hasil kajian, penelitian, dan dokumentasi pengetahuan kelembagaan {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}.</p>
         <form method="GET" action="{{ route('publikasi') }}" class="buku-search-bar">
             <input type="hidden" name="kategori" value="Buku">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari judul buku...">
@@ -329,7 +329,7 @@
     <div class="tk-top-section">
         <h2 class="tk-box-title">Publikasi</h2>
         <p class="tk-top-desc">
-            Publikasi LPPSP merupakan hasil kerjasama LPPSP dengan Klien dan Mitra dalam layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
+            Publikasi {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }} merupakan hasil kerjasama {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }} dengan Klien dan Mitra dalam layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
         </p>
     </div>
 
@@ -355,7 +355,7 @@
             <div class="pub-logo-box"><i class="fas fa-newspaper"></i></div>
             <div class="pub-content">
                 <h3 class="pub-card-title">Berita Kegiatan</h3>
-                <p class="pub-card-desc">Informasi kegiatan lembaga, pelatihan, pendampingan, dan kolaborasi LPPSP.</p>
+                <p class="pub-card-desc">Informasi kegiatan lembaga, pelatihan, pendampingan, dan kolaborasi {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}.</p>
                 <a href="{{ route('publikasi', ['kategori' => 'Berita Kegiatan']) }}#daftar-publikasi" class="pub-btn">Lihat selengkapnya.....</a>
             </div>
         </div>

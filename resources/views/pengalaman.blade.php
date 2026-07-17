@@ -363,12 +363,12 @@
 
     <!-- Top Section -->
     <div class="tk-top-section">
-        <h2 class="tk-box-title" style="margin-bottom:12px;font-size:1.5rem;">Pengalaman LPPSP</h2>
+        <h2 class="tk-box-title" style="margin-bottom:12px;font-size:1.5rem;">Pengalaman {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}</h2>
         <p style="color:var(--text);line-height:1.7;font-size:1.05rem;font-weight:500;margin:0;">
             @if(isset($profile) && $profile->deskripsi_pengalaman)
                 {!! nl2br(e($profile->deskripsi_pengalaman)) !!}
             @else
-                LPPSP memiliki pengalaman layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
+                {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }} memiliki pengalaman layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
             @endif
         </p>
     </div>

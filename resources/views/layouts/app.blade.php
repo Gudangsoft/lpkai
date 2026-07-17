@@ -28,7 +28,7 @@
         <a href="{{ route('beranda') }}" class="navbar-brand">
             @php $profile = \App\Models\Profile::first(); @endphp
             @if($profile && $profile->logo)
-                <img src="{{ Storage::url($profile->logo) }}" alt="Logo LPPSP" class="navbar-logo">
+                <img src="{{ Storage::url($profile->logo) }}" alt="Logo {{ $profile->singkatan ?? 'LPPSP' }}" class="navbar-logo">
             @endif
             <span class="brand-text">
                 <strong>{{ $profile->singkatan ?? 'LPPSP' }}</strong>
@@ -64,9 +64,9 @@
         <div class="footer-grid">
             <div class="footer-col">
                 @if(isset($profile) && $profile->logo)
-                    <img src="{{ Storage::url($profile->logo) }}" alt="Logo LPPSP" class="footer-logo">
+                    <img src="{{ Storage::url($profile->logo) }}" alt="Logo {{ $profile->singkatan ?? 'LPPSP' }}" class="footer-logo">
                 @else
-                    <h3 class="footer-brand">LPPSP</h3>
+                    <h3 class="footer-brand">{{ $profile->singkatan ?? 'LPPSP' }}</h3>
                 @endif
                 <p class="footer-desc">
                     {{-- Footer slogan: footer_slogan → deskripsi_singkat → tagline → fallback --}}
@@ -146,7 +146,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>Lokasi LPPSP</h4>
+                <h4>Lokasi {{ $profile->singkatan ?? 'LPPSP' }}</h4>
                 <div class="footer-map-container" style="width: 100%; height: 220px; border-radius: 12px; overflow: hidden; border: 2px solid rgba(255,255,255,0.1);">
                     @if(isset($profile) && $profile->maps_embed)
                         {!! $profile->maps_embed !!}

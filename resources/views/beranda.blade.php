@@ -187,7 +187,7 @@
     .sambutan-foto {
         width: 260px;
         height: 260px;
-        border-radius: 50%;
+        border-radius: 24px;
         border: 6px solid rgba(255, 255, 255, 0.15);
         object-fit: cover;
         box-shadow: var(--shadow-md);
@@ -639,7 +639,7 @@
         <div class="hero-content">
             @php 
                 $defaultTagline = "Mitra Profesional dalam <span>Pengkajian dan Pengembangan</span> Sumberdaya Pembangunan";
-                $defaultDesc = "LPPSP berkomitmen menjadi lembaga profesional yang berdedikasi tinggi dalam pemberdayaan masyarakat, pembangunan daerah, dan penguatan tata kelola pemerintahan yang baik.";
+                $defaultDesc = ($profile->singkatan ?? 'LPPSP') . " berkomitmen menjadi lembaga profesional yang berdedikasi tinggi dalam pemberdayaan masyarakat, pembangunan daerah, dan penguatan tata kelola pemerintahan yang baik.";
             @endphp
             @if($profile && !empty($profile->hero_badge))
             <span class="hero-badge"><i class="fas fa-chart-line"></i> {{ $profile->hero_badge }}</span>
@@ -685,15 +685,16 @@
     <section class="sambutan-section">
         <div class="sambutan-foto-wrapper">
             @if($profile && $profile->foto_ketua)
-                <img src="{{ Storage::url($profile->foto_ketua) }}" alt="Foto {{ $profile->sambutan_ketua_nama ?? 'Ketua LPPSP' }}" class="sambutan-foto">
+                <img src="{{ Storage::url($profile->foto_ketua) }}" alt="Foto {{ $profile->sambutan_ketua_nama ?? 'Ketua ' . ($profile->singkatan ?? 'LPPSP') }}" class="sambutan-foto">
             @else
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" alt="Foto Ketua LPPSP" class="sambutan-foto">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" alt="Foto Ketua {{ $profile->singkatan ?? 'LPPSP' }}" class="sambutan-foto">
             @endif
         </div>
         <div class="sambutan-content">
-            <h2 class="sambutan-title"><i class="fas fa-quote-left" style="color: rgba(245, 232, 232, 1); font-size: 1.2rem;"></i> Sambutan {{ $profile && $profile->sambutan_ketua_nama ? $profile->sambutan_ketua_nama : 'Ketua LPPSP' }}</h2>
+            <h2 class="sambutan-title"><i class="fas fa-quote-left" style="color: rgba(245, 232, 232, 1); font-size: 1.2rem;"></i> Sambutan {{ $profile && $profile->sambutan_ketua_nama ? $profile->sambutan_ketua_nama : 'Ketua ' . ($profile->singkatan ?? 'LPPSP') }}</h2>
             <p class="sambutan-text">
-                "{!! $profile && $profile->sambutan_ketua_isi ? nl2br(e($profile->sambutan_ketua_isi)) : 'Selamat datang di LPPSP. Sejak berdiri pada 22 Mei 1998 di Semarang, LPPSP berkomitmen menjadi mitra profesional dalam pengkajian dan pengembangan sumberdaya pembangunan. Kami hadir untuk memberikan kontribusi nyata melalui kerja pengkajian, pengembangan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan secara kolaboratif dan berkelanjutan.' !!}"
+                @php $brand = $profile->singkatan ?? 'LPPSP'; @endphp
+                "{!! $profile && $profile->sambutan_ketua_isi ? nl2br(e($profile->sambutan_ketua_isi)) : "Selamat datang di {$brand}. Sejak berdiri pada 22 Mei 1998 di Semarang, {$brand} berkomitmen menjadi mitra profesional dalam pengkajian dan pengembangan sumberdaya pembangunan. Kami hadir untuk memberikan kontribusi nyata melalui kerja pengkajian, pengembangan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan secara kolaboratif dan berkelanjutan." !!}"
             </p>
         </div>
     </section>
@@ -772,7 +773,7 @@
         $journalUrl = $j->video_url ?: ($profile->journals_url ?? '#');
     @endphp
     <div class="section-header" style="margin-bottom:0;">
-        <h2 class="section-title" style="margin-bottom:0;">LPPSP Journals</h2>
+        <h2 class="section-title" style="margin-bottom:0;">{{ $profile->singkatan ?? 'LPPSP' }} Journals</h2>
     </div>
     <section style="background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);">
         @if($j->gambar)
@@ -792,12 +793,12 @@
             @endif
             <p style="color:#475569;line-height:1.7;margin:0 0 24px;font-size:0.95rem;">
                 @if($j->deskripsi){{ Str::limit($j->deskripsi, 220) }}
-                @else Jurnal ilmiah LPPSP yang mempublikasikan hasil kajian dan penelitian di bidang kebijakan publik dan pembangunan daerah.
+                @else Jurnal ilmiah {{ $profile->singkatan ?? 'LPPSP' }} yang mempublikasikan hasil kajian dan penelitian di bidang kebijakan publik dan pembangunan daerah.
                 @endif
             </p>
             <a href="{{ $journalUrl }}" target="{{ $jTarget }}" rel="noopener"
                 style="display:inline-flex;align-items:center;gap:8px;background:#7c3aed;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;font-size:0.9rem;">
-                <i class="fas fa-external-link-alt"></i> Masuk LPPSP Journals
+                <i class="fas fa-external-link-alt"></i> Masuk {{ $profile->singkatan ?? 'LPPSP' }} Journals
             </a>
         </div>
     </section>

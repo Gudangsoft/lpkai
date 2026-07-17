@@ -158,7 +158,7 @@
     <div class="tk-top-section">
         <h2 class="tk-box-title">Testimoni Klien dan Mitra</h2>
         <p class="tk-top-desc">
-            Penilaian dan pengalaman positif dari Klien dan Mitra baik Kementerian/Lembaga, Pemerintah Daerah, OPD/Instansi Teknis, Lembaga Pendidikan, Dunia Usaha, dan Lembaga mitra Pembangunan lainnya yang pernah bekerjasama dengan LPPSP.
+            Penilaian dan pengalaman positif dari Klien dan Mitra baik Kementerian/Lembaga, Pemerintah Daerah, OPD/Instansi Teknis, Lembaga Pendidikan, Dunia Usaha, dan Lembaga mitra Pembangunan lainnya yang pernah bekerjasama dengan {{ isset($profile) && $profile->singkatan ? $profile->singkatan : 'LPPSP' }}.
         </p>
     </div>
 
@@ -215,15 +215,9 @@
 
         </div>
         @empty
-        <div class="testi-card">
-            <div class="testi-author-row">
-                <div class="testi-avatar">M</div>
-                <div>
-                    <div class="testi-author">Perwakilan Mitra Pemerintah Daerah</div>
-                    <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                </div>
-            </div>
-            <div class="testi-quote">"LPPSP memberikan pendampingan yang sistematis, komunikatif, dan sesuai kebutuhan daerah."</div>
+        <div style="grid-column: 1 / -1; text-align:center; padding:40px 20px; color:var(--text-light);">
+            <i class="fas fa-comment-slash" style="font-size:2rem;opacity:0.4;margin-bottom:12px;display:block;"></i>
+            Belum ada testimoni.
         </div>
         @endforelse
     </div>

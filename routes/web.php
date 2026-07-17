@@ -108,6 +108,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin_only'])->grou
     Route::resource('/kategori-publikasi', KategoriPublikasiAdminController::class)->except(['show', 'create', 'edit']);
 
     // Tim Organisasi
+    Route::patch('/tim-organisasi/{timOrganisasi}/toggle-aktif', [TimOrganisasiAdminController::class, 'toggleAktif'])->name('tim-organisasi.toggle-aktif');
     Route::resource('/tim-organisasi', TimOrganisasiAdminController::class)->except(['show']);
 
     // Galeri Slider (Kontak)

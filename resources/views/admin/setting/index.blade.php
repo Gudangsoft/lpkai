@@ -418,7 +418,7 @@
         <div class="setting-section">
             <div class="setting-section-title">
                 <div class="setting-icon" style="background:#ede9fe;"><i class="fas fa-book-open" style="color:#7c3aed;"></i></div>
-                <div><h3>LPPSP Journals</h3><p>Gambar promosi dan link jurnal ilmiah LPPSP yang ditampilkan di halaman utama</p></div>
+                <div><h3>{{ $profile->singkatan ?? 'LPPSP' }} Journals</h3><p>Gambar promosi dan link jurnal ilmiah {{ $profile->singkatan ?? 'LPPSP' }} yang ditampilkan di halaman utama</p></div>
             </div>
             <div class="form-group">
                 <label class="form-label">Gambar Promosi Jurnal</label>

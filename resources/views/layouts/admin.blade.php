@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') - Admin LPPSP</title>
+    @php $layoutProfile = \App\Models\Profile::first(); @endphp
+    <title>@yield('title', 'Dashboard') - Admin {{ $layoutProfile->singkatan ?? 'LPPSP' }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    @php $layoutProfile = \App\Models\Profile::first(); @endphp
     @if($layoutProfile && $layoutProfile->favicon)
         <link rel="icon" type="image/x-icon" href="{{ Storage::url($layoutProfile->favicon) }}">
         <link rel="shortcut icon" href="{{ Storage::url($layoutProfile->favicon) }}">
@@ -30,7 +30,7 @@
                 <span style="font-size: 1rem;">{{ $layoutProfile->singkatan ?? 'LPPSP' }}</span>
             @else
                 <i class="fas fa-building"></i>
-                <span>LPPSP Admin</span>
+                <span>{{ $layoutProfile->singkatan ?? 'LPPSP' }} Admin</span>
             @endif
         </div>
         <nav class="sidebar-nav">
