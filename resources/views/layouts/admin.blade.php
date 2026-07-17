@@ -26,7 +26,7 @@
     <aside class="admin-sidebar" id="sidebar">
         <div class="sidebar-brand" style="display: flex; align-items: center; gap: 10px;">
             @if($layoutProfile && $layoutProfile->logo)
-                <img src="{{ Storage::url($layoutProfile->logo) }}" alt="Logo" style="height: 40px; border-radius: 8px; background: white; padding: 4px; object-fit: contain;">
+                <img src="{{ Storage::url($layoutProfile->logo) }}" alt="Logo" style="height: 40px; object-fit: contain;">
                 <span style="font-size: 1rem;">{{ $layoutProfile->singkatan ?? 'LPPSP' }}</span>
             @else
                 <i class="fas fa-building"></i>
