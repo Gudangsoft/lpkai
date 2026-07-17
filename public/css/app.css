@@ -55,14 +55,9 @@ main { padding-top: 96px; }
 .navbar .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
 .navbar-brand { display: flex; align-items: center; gap: 16px; }
-.navbar-logo { 
-    height: 64px; 
-    width: auto; 
-    border-radius: 12px; 
-    background-color: #ffffff;
-    padding: 6px 12px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.8);
+.navbar-logo {
+    height: 64px;
+    width: auto;
     object-fit: contain;
 }
 .brand-text { color: var(--white); display: flex; flex-direction: column; gap: 2px; justify-content: center; }
@@ -292,11 +287,6 @@ textarea.form-control { resize: vertical; min-height: 140px; }
 .footer-logo {
     height: 64px;
     width: auto;
-    border-radius: 10px;
-    background-color: #ffffff;
-    padding: 8px 14px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.8);
     margin-bottom: 20px;
     object-fit: contain;
     display: block;
