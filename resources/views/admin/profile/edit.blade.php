@@ -509,9 +509,13 @@
                 resolve(file);
                 return;
             }
+            // Jika kompresi gagal di titik manapun, gunakan file asli
+            // agar penyimpanan tidak macet menunggu selamanya.
             const reader = new FileReader();
+            reader.onerror = () => resolve(file);
             reader.onload = (e) => {
                 const img = new Image();
+                img.onerror = () => resolve(file);
                 img.onload = () => {
                     let w = img.naturalWidth, h = img.naturalHeight;
                     if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
@@ -523,6 +527,7 @@
                     ctx.drawImage(img, 0, 0, w, h);
 
                     canvas.toBlob((blob) => {
+                        if (!blob) { resolve(file); return; }
                         const compressed = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
                             type: 'image/jpeg', lastModified: Date.now()
                         });
@@ -557,35 +562,43 @@
                 saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i> Mengompres & Menyimpan...';
             }
 
-            // Proses semua file input
-            const fileInputs = form.querySelectorAll('input[type="file"]');
-            const jobs = [];
+            // Kompresi gambar tidak boleh menggagalkan penyimpanan data.
+            // Jika ada kegagalan tak terduga di sini, tetap lanjutkan submit
+            // dengan file apa adanya alih-alih macet selamanya.
+            try {
+                // Proses semua file input
+                const fileInputs = form.querySelectorAll('input[type="file"]');
+                const jobs = [];
 
-            fileInputs.forEach(input => {
-                if (!input.files || input.files.length === 0) return;
-                const isMultiple = input.multiple;
+                fileInputs.forEach(input => {
+                    if (!input.files || input.files.length === 0) return;
+                    const isMultiple = input.multiple;
 
-                if (isMultiple) {
-                    // Multiple files (slider hero images)
-                    const files = Array.from(input.files);
-                    jobs.push(
-                        Promise.all(files.map(f => compressImage(f, MAX_WIDTH, MAX_HEIGHT, QUALITY)))
-                            .then(compressed => {
-                                const dt = new DataTransfer();
-                                compressed.forEach(f => dt.items.add(f));
-                                input.files = dt.files;
-                            })
-                    );
-                } else {
-                    // Single file
-                    jobs.push(
-                        compressImage(input.files[0], MAX_WIDTH, MAX_HEIGHT, QUALITY)
-                            .then(compressed => replaceFileInput(input, compressed))
-                    );
-                }
-            });
+                    if (isMultiple) {
+                        // Multiple files (slider hero images)
+                        const files = Array.from(input.files);
+                        jobs.push(
+                            Promise.all(files.map(f => compressImage(f, MAX_WIDTH, MAX_HEIGHT, QUALITY)))
+                                .then(compressed => {
+                                    const dt = new DataTransfer();
+                                    compressed.forEach(f => dt.items.add(f));
+                                    input.files = dt.files;
+                                })
+                        );
+                    } else {
+                        // Single file
+                        jobs.push(
+                            compressImage(input.files[0], MAX_WIDTH, MAX_HEIGHT, QUALITY)
+                                .then(compressed => replaceFileInput(input, compressed))
+                        );
+                    }
+                });
 
-            await Promise.all(jobs);
+                await Promise.all(jobs);
+            } catch (err) {
+                console.error('Kompresi gambar gagal, menyimpan tanpa kompresi:', err);
+            }
+
             form.submit();
         });
     });
