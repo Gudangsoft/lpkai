@@ -132,6 +132,17 @@
             </div>
             
             <div class="footer-col">
+                <h4>Tautan Cepat</h4>
+                <div class="footer-links">
+                    @forelse($navMenus as $item)
+                        <a href="{{ $item->resolveUrl() }}" target="{{ $item->target }}">{{ $item->label }}</a>
+                    @empty
+                        <a href="{{ route('beranda') }}">Beranda</a>
+                    @endforelse
+                </div>
+            </div>
+
+            <div class="footer-col">
                 <h4>Hubungi Kami</h4>
                 <ul class="footer-contact">
                     <li>
@@ -174,6 +185,10 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.5843477818464!2d110.45781607593672!3d-7.058000471126744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c1c4f4a9b6d%3A0xc345f7bd4c8b21ba!2sBumi%20Wana%20Mukti!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     @endif
                 </div>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode(isset($profile) && $profile->alamat ? $profile->alamat : 'Bumi Wana Mukti Blok A4 No 31, Kel. Sambiroto, Kec. Tembalang, Kota Semarang') }}"
+                   target="_blank" rel="noopener" class="footer-map-btn">
+                    <i class="fas fa-map-marker-alt"></i> Buka di Google Maps
+                </a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -184,6 +199,9 @@
                     {{ $profile->singkatan ?? 'LPPSP' }}. Semua hak dilindungi.
                 @endif
             </p>
+            <span class="footer-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+                <i class="fas fa-arrow-up"></i> Kembali ke Atas
+            </span>
         </div>
     </div>
 </footer>
