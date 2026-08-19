@@ -67,83 +67,89 @@
         .lu-card {
             flex: 1 1 300px;
             max-width: 360px;
-            background: linear-gradient(135deg, var(--primary) 0%, #1a3a8a 100%);
-            color: var(--white);
-            border-radius: 20px;
-            padding: 30px 24px;
+            background: var(--white);
+            color: var(--text);
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 18px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
-            position: relative;
+            text-align: left;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 20px rgba(13, 43, 94, 0.08);
+            border: 1px solid var(--border);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: default;
-        }
-
-        .lu-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
         }
 
         .lu-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.25);
-            background: linear-gradient(135deg, #2563eb 0%, var(--primary) 100%);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.18);
         }
 
-        .lu-card:hover::before {
-            left: -30%;
-            top: -30%;
+        .lu-thumb {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            display: block;
         }
 
-        .lu-icon-box {
-            width: 70px;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 18px;
+        .lu-thumb-placeholder {
+            width: 100%;
+            height: 170px;
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a8a 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: #fbbf24;
-            /* Gold accent */
-            margin-bottom: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
         }
 
-        .lu-card:hover .lu-icon-box {
-            background: var(--white);
-            color: var(--primary);
-            transform: scale(1.1) rotate(5deg);
+        .lu-icon-box {
+            width: 62px;
+            height: 62px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            color: #fbbf24;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .lu-body {
+            padding: 22px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-grow: 1;
         }
 
         .lu-title {
-            font-size: 1.1rem;
+            font-size: 1.08rem;
             font-weight: 700;
-            line-height: 1.5;
+            line-height: 1.4;
             margin: 0;
+            color: var(--primary);
         }
 
         .lu-desc {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.72);
-            line-height: 1.65;
+            font-size: 0.88rem;
+            color: var(--text-light);
+            line-height: 1.6;
             margin: 0;
-            text-align: center;
+            text-align: left;
+            flex-grow: 1;
         }
+
+        .lu-readmore {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-light);
+            font-weight: 700;
+            font-size: 0.86rem;
+            text-decoration: none;
+            margin-top: 4px;
+        }
+        .lu-readmore:hover { text-decoration: underline; }
 
         /* Keunggulan */
         .ku-grid {
@@ -263,21 +269,36 @@
 
                 @forelse($layanans as $layanan)
                     <div class="lu-card">
-                        <div class="lu-icon-box">
-                            <i class="{{ $iconMap[$layanan->judul] ?? 'fas fa-check-circle' }}"></i>
-                        </div>
-                        <h4 class="lu-title">{{ $layanan->judul }}</h4>
-                        @if($layanan->deskripsi)
-                            <p class="lu-desc">{{ $layanan->deskripsi }}</p>
+                        @if($layanan->gambar)
+                            <img src="{{ Storage::url($layanan->gambar) }}" alt="{{ $layanan->judul }}" class="lu-thumb">
+                        @else
+                            <div class="lu-thumb-placeholder">
+                                <div class="lu-icon-box">
+                                    <i class="{{ $layanan->ikon ?: ($iconMap[$layanan->judul] ?? 'fas fa-check-circle') }}"></i>
+                                </div>
+                            </div>
                         @endif
+                        <div class="lu-body">
+                            <h4 class="lu-title">{{ $layanan->judul }}</h4>
+                            @if($layanan->deskripsi)
+                                <p class="lu-desc">{{ Str::limit($layanan->deskripsi, 110) }}</p>
+                            @endif
+                            <a href="{{ route('layanan.show', $layanan) }}" class="lu-readmore">
+                                Baca Selengkapnya <i class="fas fa-arrow-right" style="font-size:0.78rem;"></i>
+                            </a>
+                        </div>
                     </div>
                 @empty
                     @foreach($iconMap as $judul => $icon)
                         <div class="lu-card">
-                            <div class="lu-icon-box">
-                                <i class="{{ $icon }}"></i>
+                            <div class="lu-thumb-placeholder">
+                                <div class="lu-icon-box">
+                                    <i class="{{ $icon }}"></i>
+                                </div>
                             </div>
-                            <h4 class="lu-title">{{ $judul }}</h4>
+                            <div class="lu-body">
+                                <h4 class="lu-title">{{ $judul }}</h4>
+                            </div>
                         </div>
                     @endforeach
                 @endforelse

@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/tentang-kami', [TentangKamiController::class, 'index'])->name('tentang-kami');
 Route::get('/layanan', [LayananController::class, 'index'])->name('layanan');
+Route::get('/layanan/{layanan}', [LayananController::class, 'show'])->name('layanan.show');
 Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
 Route::get('/pengalaman/{pengalaman}', [PengalamanController::class, 'show'])->name('pengalaman.show');
 Route::get('/klien-mitra', [KlienMitraController::class, 'index'])->name('klien-mitra');

@@ -26,27 +26,28 @@ class SettingController extends Controller
             'alamat'            => 'nullable|string|max:500',
             'telepon'           => 'nullable|string|max:50',
             'email'             => 'nullable|email|max:150',
-            'website'           => 'nullable|url|max:200',
+            'website'           => 'nullable|string|max:200',
             'maps_embed'        => 'nullable|string',
             // Logo & Favicon
             'logo'              => 'nullable|image|max:2048',
             'favicon'           => 'nullable|image|max:512',
-            // Social media
-            'facebook'          => 'nullable|url|max:300',
-            'instagram'         => 'nullable|url|max:300',
-            'twitter'           => 'nullable|url|max:300',
-            'youtube'           => 'nullable|url|max:300',
-            'tiktok'            => 'nullable|url|max:300',
-            'linkedin'          => 'nullable|url|max:300',
+            // Social media — stored as free text (not strict `url`) so a handle pasted
+            // without "https://" never blocks saving the rest of the form.
+            'facebook'          => 'nullable|string|max:300',
+            'instagram'         => 'nullable|string|max:300',
+            'twitter'           => 'nullable|string|max:300',
+            'youtube'           => 'nullable|string|max:300',
+            'tiktok'            => 'nullable|string|max:300',
+            'linkedin'          => 'nullable|string|max:300',
             'whatsapp'          => 'nullable|string|max:50',
             'telegram'          => 'nullable|string|max:200',
-            'threads'           => 'nullable|url|max:300',
+            'threads'           => 'nullable|string|max:300',
             // Footer
             'footer_slogan'     => 'nullable|string|max:300',
             'footer_copyright'  => 'nullable|string|max:200',
             // Journals
             'journals_gambar'     => 'nullable|image|max:3072',
-            'journals_url'        => 'nullable|url|max:500',
+            'journals_url'        => 'nullable|string|max:500',
             'journals_deskripsi'  => 'nullable|string|max:400',
             // Maintenance
             'maintenance_mode'  => 'nullable|boolean',

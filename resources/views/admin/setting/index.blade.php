@@ -99,6 +99,19 @@
 </div>
 @endif
 
+@if($errors->any())
+<div style="background:#fff7ed;border:1px solid #fdba74;border-radius:10px;padding:14px 18px;margin-bottom:24px;color:#9a3412;">
+    <div style="display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px;">
+        <i class="fas fa-triangle-exclamation"></i> Gagal menyimpan — periksa isian berikut ini:
+    </div>
+    <ul style="margin:0;padding-left:20px;font-size:0.88rem;">
+        @foreach($errors->all() as $err)
+        <li>{{ $err }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 <div class="setting-tabs">
     <button class="stab active" onclick="showTab('umum',this)"><i class="fas fa-globe"></i> Umum</button>
     <button class="stab" onclick="showTab('kontak',this)"><i class="fas fa-address-book"></i> Kontak & Peta</button>
@@ -186,7 +199,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label"><i class="fas fa-globe" style="color:#7c3aed;margin-right:5px;"></i>Website Eksternal</label>
-                <input type="url" name="website" class="form-control @error('website') is-invalid @enderror"
+                <input type="text" name="website" class="form-control @error('website') is-invalid @enderror"
                     value="{{ old('website', $profile->website ?? '') }}"
                     placeholder="https://www.lembaga.or.id">
                 @error('website')<span class="invalid-feedback">{{ $message }}</span>@enderror
@@ -272,13 +285,13 @@
             <div class="form-row-2">
                 <div class="form-group">
                     <label class="form-label"><i class="fab fa-facebook" style="color:#1d4ed8;margin-right:6px;"></i>Facebook</label>
-                    <input type="url" name="facebook" class="form-control @error('facebook') is-invalid @enderror"
+                    <input type="text" name="facebook" class="form-control @error('facebook') is-invalid @enderror"
                         value="{{ old('facebook', $profile->facebook ?? '') }}" placeholder="https://facebook.com/namahalaman">
                     @error('facebook')<span class="invalid-feedback">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group">
                     <label class="form-label"><i class="fab fa-instagram" style="color:#e1306c;margin-right:6px;"></i>Instagram</label>
-                    <input type="url" name="instagram" class="form-control @error('instagram') is-invalid @enderror"
+                    <input type="text" name="instagram" class="form-control @error('instagram') is-invalid @enderror"
                         value="{{ old('instagram', $profile->instagram ?? '') }}" placeholder="https://instagram.com/namaakun">
                     @error('instagram')<span class="invalid-feedback">{{ $message }}</span>@enderror
                 </div>
@@ -286,13 +299,13 @@
             <div class="form-row-2">
                 <div class="form-group">
                     <label class="form-label"><i class="fab fa-x-twitter" style="color:#000;margin-right:6px;"></i>Twitter / X</label>
-                    <input type="url" name="twitter" class="form-control @error('twitter') is-invalid @enderror"
+                    <input type="text" name="twitter" class="form-control @error('twitter') is-invalid @enderror"
                         value="{{ old('twitter', $profile->twitter ?? '') }}" placeholder="https://x.com/namaakun">
                     @error('twitter')<span class="invalid-feedback">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group">
                     <label class="form-label"><i class="fab fa-youtube" style="color:#dc2626;margin-right:6px;"></i>YouTube</label>
-                    <input type="url" name="youtube" class="form-control @error('youtube') is-invalid @enderror"
+                    <input type="text" name="youtube" class="form-control @error('youtube') is-invalid @enderror"
                         value="{{ old('youtube', $profile->youtube ?? '') }}" placeholder="https://youtube.com/@namakanal">
                     @error('youtube')<span class="invalid-feedback">{{ $message }}</span>@enderror
                 </div>
@@ -300,13 +313,13 @@
             <div class="form-row-2">
                 <div class="form-group">
                     <label class="form-label"><i class="fab fa-tiktok" style="color:#010101;margin-right:6px;"></i>TikTok</label>
-                    <input type="url" name="tiktok" class="form-control @error('tiktok') is-invalid @enderror"
+                    <input type="text" name="tiktok" class="form-control @error('tiktok') is-invalid @enderror"
                         value="{{ old('tiktok', $profile->tiktok ?? '') }}" placeholder="https://tiktok.com/@namaakun">
                     @error('tiktok')<span class="invalid-feedback">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group">
                     <label class="form-label"><i class="fab fa-linkedin" style="color:#0a66c2;margin-right:6px;"></i>LinkedIn</label>
-                    <input type="url" name="linkedin" class="form-control @error('linkedin') is-invalid @enderror"
+                    <input type="text" name="linkedin" class="form-control @error('linkedin') is-invalid @enderror"
                         value="{{ old('linkedin', $profile->linkedin ?? '') }}" placeholder="https://linkedin.com/company/namaorg">
                     @error('linkedin')<span class="invalid-feedback">{{ $message }}</span>@enderror
                 </div>
@@ -327,7 +340,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label"><i class="fas fa-at" style="color:#111;margin-right:6px;"></i>Threads</label>
-                <input type="url" name="threads" class="form-control @error('threads') is-invalid @enderror"
+                <input type="text" name="threads" class="form-control @error('threads') is-invalid @enderror"
                     value="{{ old('threads', $profile->threads ?? '') }}" placeholder="https://threads.net/@namaakun">
                 @error('threads')<span class="invalid-feedback">{{ $message }}</span>@enderror
             </div>
@@ -434,7 +447,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">URL Link Jurnal</label>
-                <input type="url" name="journals_url" class="form-control"
+                <input type="text" name="journals_url" class="form-control"
                     value="{{ old('journals_url', $profile->journals_url ?? 'https://journal.lppspsemarang.org/index.php/Jarvic') }}"
                     placeholder="https://journal.lppspsemarang.org/...">
             </div>
@@ -546,11 +559,23 @@ toggle.addEventListener('change', function () {
     }
 });
 
-// Restore active tab from hash
-const hash = window.location.hash.replace('#','');
-if (['umum','kontak','logo','sosmed','footer','journals','maintenance'].includes(hash)) {
-    const btn = document.querySelector(`.stab[onclick*="${hash}"]`);
-    if (btn) showTab(hash, btn);
+// If the last submit failed validation, jump straight to the tab holding
+// the invalid field — otherwise the red-bordered field can be sitting in a
+// tab that isn't visible, making a real save failure look like nothing happened.
+const firstInvalid = document.querySelector('.is-invalid');
+if (firstInvalid) {
+    const pane = firstInvalid.closest('.stab-pane');
+    const paneName = pane ? pane.id.replace('pane-', '') : null;
+    const btn = paneName ? document.querySelector(`.stab[onclick*="${paneName}"]`) : null;
+    if (btn) showTab(paneName, btn);
+    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+} else {
+    // Restore active tab from hash
+    const hash = window.location.hash.replace('#','');
+    if (['umum','kontak','logo','sosmed','footer','journals','maintenance'].includes(hash)) {
+        const btn = document.querySelector(`.stab[onclick*="${hash}"]`);
+        if (btn) showTab(hash, btn);
+    }
 }
 </script>
 @endpush
