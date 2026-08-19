@@ -81,6 +81,33 @@ main { padding-top: 96px; }
 .nav-link.nav-btn:hover,
 .nav-link.nav-btn.active { background: rgba(255,255,255,0.15); color: var(--white); }
 
+/* ─── Menu Dropdown (Submenu) ─────────────────────────── */
+.nav-item-dropdown { position: relative; }
+.nav-caret { font-size: .7rem; margin-left: 4px; transition: transform var(--transition); }
+.nav-item-dropdown.nav-item-open .nav-caret { transform: rotate(180deg); }
+.nav-dropdown-menu {
+    display: none; position: absolute; top: 100%; left: 0; min-width: 200px;
+    background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+    padding: 8px; margin-top: 6px; z-index: 1001;
+}
+.nav-dropdown-menu li a {
+    display: block; padding: 10px 14px; border-radius: 8px; color: var(--primary);
+    font-size: .88rem; font-weight: 500; transition: var(--transition);
+}
+.nav-dropdown-menu li a:hover, .nav-dropdown-menu li a.active { background: var(--accent-light); }
+
+@media (min-width: 1101px) {
+    .nav-item-dropdown:hover .nav-dropdown-menu { display: block; }
+}
+@media (max-width: 1100px) {
+    .nav-dropdown-menu {
+        display: none; position: static; box-shadow: none; background: rgba(255,255,255,.06);
+        margin: 4px 0 0 12px; padding: 4px 0;
+    }
+    .nav-item-dropdown.nav-item-open .nav-dropdown-menu { display: block; }
+    .nav-dropdown-menu li a { color: rgba(255,255,255,.85); }
+}
+
 .navbar-toggle {
     display: none;
     background: transparent; border: 2px solid rgba(255,255,255,.4);

@@ -40,16 +40,35 @@
             <i class="fas fa-bars"></i>
         </button>
 
+        @php
+            $navMenus = \App\Models\Menu::aktif()->whereNull('parent_id')
+                ->with(['children' => fn($q) => $q->aktif()->orderBy('urutan')])
+                ->orderBy('urutan')->get();
+        @endphp
         <ul class="navbar-menu" id="navMenu">
-            <li><a href="{{ route('beranda') }}" class="nav-link {{ request()->routeIs('beranda') ? 'active' : '' }}">Beranda</a></li>
-            <li><a href="{{ route('tentang-kami') }}" class="nav-link {{ request()->routeIs('tentang-kami') ? 'active' : '' }}">Tentang Kami</a></li>
-            <li><a href="{{ route('layanan') }}" class="nav-link {{ request()->routeIs('layanan') ? 'active' : '' }}">Layanan</a></li>
-            <li><a href="{{ route('pengalaman') }}" class="nav-link {{ request()->routeIs('pengalaman') ? 'active' : '' }}">Pengalaman</a></li>
-            <li><a href="{{ route('klien-mitra') }}" class="nav-link {{ request()->routeIs('klien-mitra') ? 'active' : '' }}">Klien/Mitra</a></li>
-            <li><a href="{{ route('testimoni') }}" class="nav-link {{ request()->routeIs('testimoni') ? 'active' : '' }}">Testimoni</a></li>
-            <li><a href="{{ route('publikasi') }}" class="nav-link {{ request()->routeIs('publikasi') ? 'active' : '' }}">Publikasi</a></li>
-            <li><a href="{{ route('berita') }}" class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}">Berita</a></li>
-            <li><a href="{{ route('kontak') }}" class="nav-link nav-btn {{ request()->routeIs('kontak') ? 'active' : '' }}">Kontak</a></li>
+            @forelse($navMenus as $item)
+                @if($item->children->count())
+                <li class="nav-item-dropdown">
+                    <a href="{{ $item->resolveUrl() }}" target="{{ $item->target }}"
+                       class="nav-link {{ $item->is_button ? 'nav-btn' : '' }} {{ $item->isActive() ? 'active' : '' }}">
+                        {{ $item->label }} <i class="fas fa-chevron-down nav-caret"></i>
+                    </a>
+                    <ul class="nav-dropdown-menu">
+                        @foreach($item->children as $child)
+                        <li><a href="{{ $child->resolveUrl() }}" target="{{ $child->target }}"
+                               class="{{ $child->isActive() ? 'active' : '' }}">{{ $child->label }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                @else
+                <li><a href="{{ $item->resolveUrl() }}" target="{{ $item->target }}"
+                       class="nav-link {{ $item->is_button ? 'nav-btn' : '' }} {{ $item->isActive() ? 'active' : '' }}">
+                        {{ $item->label }}
+                </a></li>
+                @endif
+            @empty
+                <li><a href="{{ route('beranda') }}" class="nav-link">Beranda</a></li>
+            @endforelse
         </ul>
     </div>
 </nav>

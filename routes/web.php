@@ -8,6 +8,7 @@ use App\Http\Controllers\KlienMitraController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\PublikasiController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\HalamanController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\Admin\KlienMitraAdminController;
 use App\Http\Controllers\Admin\TestimoniAdminController;
 use App\Http\Controllers\Admin\PublikasiAdminController;
 use App\Http\Controllers\Admin\BeritaAdminController;
+use App\Http\Controllers\Admin\HalamanAdminController;
+use App\Http\Controllers\Admin\MenuAdminController;
 use App\Http\Controllers\Admin\KategoriPublikasiAdminController;
 use App\Http\Controllers\Admin\JurnalAdminController;
 use App\Http\Controllers\Admin\KontakAdminController;
@@ -42,6 +45,7 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 Route::get('/berita/{berita:slug}', [BeritaController::class, 'show'])->name('berita.show');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
+Route::get('/halaman/{halaman:slug}', [HalamanController::class, 'show'])->name('halaman.show');
 
 // ─── Auth Routes ──────────────────────────────────────────────────────────────
 Route::post('/admin/logout', function (\Illuminate\Http\Request $request) {
@@ -108,6 +112,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin_only'])->grou
 
     // Berita
     Route::resource('/berita', BeritaAdminController::class)->parameters(['berita' => 'berita'])->except(['show']);
+
+    // Halaman
+    Route::resource('/halaman', HalamanAdminController::class)->except(['show']);
+
+    // Menu Navigasi
+    Route::patch('/menu/reorder', [MenuAdminController::class, 'reorder'])->name('menu.reorder');
+    Route::resource('/menu', MenuAdminController::class)->except(['show']);
 
     // Jurnal Ilmiah
     Route::resource('/jurnal', JurnalAdminController::class)->except(['show']);

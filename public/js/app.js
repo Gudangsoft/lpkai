@@ -22,6 +22,16 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Mobile: tap a parent item with a submenu to expand it instead of navigating
+document.querySelectorAll('.nav-item-dropdown > .nav-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1100) {
+            e.preventDefault();
+            link.closest('.nav-item-dropdown').classList.toggle('nav-item-open');
+        }
+    });
+});
+
 // Smooth reveal animations
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
 const observer = new IntersectionObserver((entries) => {

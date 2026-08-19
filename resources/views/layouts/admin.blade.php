@@ -86,6 +86,23 @@
                 <li><a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita*') ? 'active' : '' }}">
                     <i class="fas fa-bullhorn"></i> Berita
                 </a></li>
+                @php
+                    $menuGroupActive = request()->routeIs('admin.menu*') || request()->routeIs('admin.halaman*');
+                @endphp
+                <li class="nav-group {{ $menuGroupActive ? 'open' : '' }}">
+                    <button class="nav-group-toggle" onclick="toggleNavGroup(this)">
+                        <span><i class="fas fa-sitemap"></i> Menu & Halaman</span>
+                        <i class="fas fa-chevron-down nav-group-arrow"></i>
+                    </button>
+                    <ul class="nav-sub">
+                        <li><a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu*') ? 'active' : '' }}">
+                            <i class="fas fa-bars-staggered"></i> Kelola Menu
+                        </a></li>
+                        <li><a href="{{ route('admin.halaman.index') }}" class="{{ request()->routeIs('admin.halaman*') ? 'active' : '' }}">
+                            <i class="fas fa-file-lines"></i> Halaman
+                        </a></li>
+                    </ul>
+                </li>
                 <li><a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}">
                     <i class="fas fa-users-cog"></i> Pengguna
                 </a></li>

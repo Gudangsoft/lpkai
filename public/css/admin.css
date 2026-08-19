@@ -162,7 +162,7 @@ select.form-control { cursor: pointer; }
 .img-preview { margin-top: 12px; max-width: 200px; border-radius: 8px; border: 2px solid var(--border); }
 .alert { padding: 14px 18px; border-radius: 10px; margin-bottom: 20px; font-size: .9rem; display: flex; align-items: center; gap: 10px; }
 .alert-success { background: #d4edda; color: #155724; }
-.alert-danger { background: #f8d7da; color: #721c24; }
+.alert-danger, .alert-error { background: #f8d7da; color: #721c24; }
 .invalid-feedback { color: #e53e3e; font-size: .8rem; margin-top: 4px; display: block; }
 .is-invalid { border-color: #e53e3e !important; }
 .badge { padding: 4px 10px; border-radius: 50px; font-size: .75rem; font-weight: 600; }
