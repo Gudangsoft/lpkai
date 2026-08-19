@@ -34,47 +34,66 @@
         gap: 32px;
     }
 
-    /* Hero Section */
+    /* Hero Section — full-width banner */
     .hero-section {
-        display: grid;
-        grid-template-columns: 1fr minmax(0, 440px);
-        gap: 0;
-        align-items: start;
-        background: #ffffff;
-        padding: 0;
-        border-radius: 0;
-        box-shadow: none;
         position: relative;
+        width: 100%;
+        min-height: 560px;
+        display: flex;
+        align-items: center;
         overflow: hidden;
-        border: none;
+        background: var(--primary-blue);
     }
 
-    .hero-section::before { display: none; }
+    .hero-slider {
+        position: absolute;
+        inset: 0;
+        display: grid;
+    }
+
+    .hero-slide {
+        grid-area: 1 / 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0;
+        transition: opacity 1.2s ease-in-out;
+    }
+
+    .hero-slide.active {
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(100deg, rgba(8,15,35,.92) 0%, rgba(8,15,35,.72) 42%, rgba(8,15,35,.32) 75%, rgba(8,15,35,.10) 100%);
+    }
+
+    .hero-inner {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 90px 24px;
+    }
 
     .hero-content {
-        background: #ffffff;
-        border-radius: 0;
-        padding: 44px 16px 44px 44px;
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-visual {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 0;
-        display: flex;
-        flex-direction: column;
+        max-width: 620px;
     }
 
     .hero-badge {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(37, 99, 235, 0.1);
-        color: var(--primary-light);
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #fff;
         font-weight: 600;
         font-size: 0.85rem;
         padding: 6px 16px;
@@ -84,59 +103,32 @@
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 2.6rem;
         font-weight: 800;
-        color: var(--text-dark);
+        color: #fff;
         line-height: 1.25;
         margin-bottom: 20px;
+        text-shadow: 0 2px 16px rgba(0,0,0,.25);
     }
 
     .hero-title span {
-        color: var(--primary-blue);
+        color: var(--accent-gold);
         position: relative;
     }
 
     .hero-text {
-        font-size: 1.05rem;
-        color: var(--text-muted);
+        font-size: 1.08rem;
+        color: rgba(255, 255, 255, 0.88);
         line-height: 1.7;
         margin-bottom: 32px;
-        text-align: justify;
-    }
-
-
-    /* Grid-overlay slider: semua slide di-stack, tinggi mengikuti gambar asli */
-    .hero-slider {
-        display: grid;
-        width: 100%;
-        flex: 1;
-    }
-
-    .hero-slide {
-        grid-area: 1 / 1;
-        width: 100%;
-        height: auto;
-        display: block;
-        opacity: 0;
-        transition: opacity 0.8s ease-in-out;
-        border-radius: 0;
-    }
-
-    .hero-slide.active {
-        grid-area: 1 / 1;
-        width: 100%;
-        height: auto;
-        display: block;
-        opacity: 1;
-        z-index: 2;
-        border-radius: 0;
+        text-align: left;
     }
 
     .slider-dots {
         position: absolute;
-        bottom: 20px; left: 0; right: 0;
+        bottom: 24px; left: 0; right: 0;
         display: flex; justify-content: center; gap: 8px;
-        z-index: 10;
+        z-index: 4;
     }
 
     .slider-dot {
@@ -148,8 +140,8 @@
     }
 
     .slider-dot.active {
-        background: var(--primary-blue);
-        border-color: var(--white);
+        background: var(--accent-gold);
+        border-color: rgba(255,255,255,.7);
         transform: scale(1.2);
     }
 
@@ -518,20 +510,13 @@
 
     @media (max-width: 1024px) {
         .hero-section {
-            grid-template-columns: 1fr;
-            min-height: auto;
+            min-height: 480px;
         }
-        .hero-content {
-            padding: 36px 28px;
-            text-align: center;
+        .hero-inner {
+            padding: 64px 24px;
         }
         .hero-title {
-            font-size: 1.8rem;
-        }
-        .hero-visual {
-            order: -1;
-            min-height: 400px;
-            padding: 0;
+            font-size: 2rem;
         }
         .sambutan-section {
             grid-template-columns: 1fr;
@@ -616,8 +601,10 @@
     @media (max-width: 768px) {
         .home-container { gap: 24px; padding: 16px 16px 32px; }
 
-        .hero-content { padding: 32px 24px; }
-        .hero-title { font-size: 1.9rem; }
+        .hero-section { min-height: 420px; }
+        .hero-inner { padding: 48px 20px; }
+        .hero-title { font-size: 1.7rem; }
+        .hero-text { font-size: 1rem; }
 
         .sambutan-section { padding: 24px 20px; gap: 16px; }
         .sambutan-foto { width: 160px; height: 160px; }
@@ -641,9 +628,10 @@
     @media (max-width: 480px) {
         .home-container { gap: 20px; padding: 12px 12px 24px; }
 
-        .hero-content { padding: 24px 20px; }
-        .hero-title { font-size: 1.6rem; }
-        .hero-text { font-size: 0.95rem; }
+        .hero-section { min-height: 380px; }
+        .hero-inner { padding: 36px 16px; }
+        .hero-title { font-size: 1.45rem; }
+        .hero-text { font-size: 0.92rem; }
 
         .sambutan-section { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 28px 20px; }
         .sambutan-foto { width: 130px; height: 130px; }
@@ -678,12 +666,32 @@
 @endpush
 
 @section('content')
-<div class="home-container">
-    
-    <!-- Hero Section (Restored Card Style) -->
-    <section class="hero-section">
+
+@php
+    $sliderImages = [];
+    if($profile && !empty($profile->hero_images)) {
+        $sliderImages = is_array($profile->hero_images) ? $profile->hero_images : json_decode($profile->hero_images, true);
+    } elseif ($profile && $profile->hero_image) {
+        $sliderImages = [$profile->hero_image];
+    }
+@endphp
+
+<!-- Hero Section - Full Width Banner -->
+<section class="hero-section">
+    <div class="hero-slider">
+        @if(count($sliderImages) > 0)
+            @foreach($sliderImages as $index => $img)
+                <img src="{{ Storage::url($img) }}" alt="Hero Image {{ $index+1 }}" class="hero-slide {{ $index == 0 ? 'active' : '' }}">
+            @endforeach
+        @else
+            <img src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?q=80&w=1600&auto=format&fit=crop" alt="Pembangunan Profesional" class="hero-slide active">
+        @endif
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-inner">
         <div class="hero-content">
-            @php 
+            @php
                 $defaultTagline = "Mitra Profesional dalam <span>Pengkajian dan Pengembangan</span> Sumberdaya Pembangunan";
                 $defaultDesc = ($profile->singkatan ?? 'LPPSP') . " berkomitmen menjadi lembaga profesional yang berdedikasi tinggi dalam pemberdayaan masyarakat, pembangunan daerah, dan penguatan tata kelola pemerintahan yang baik.";
             @endphp
@@ -698,34 +706,18 @@
                 Pelajari Lebih Lanjut <i class="fas fa-arrow-right"></i>
             </a>
         </div>
-        <div class="hero-visual">
-            @php
-                $sliderImages = [];
-                if($profile && !empty($profile->hero_images)) {
-                    $sliderImages = is_array($profile->hero_images) ? $profile->hero_images : json_decode($profile->hero_images, true);
-                } elseif ($profile && $profile->hero_image) {
-                    $sliderImages = [$profile->hero_image];
-                }
-            @endphp
+    </div>
 
-            @if(count($sliderImages) > 1)
-                <div class="hero-slider">
-                    @foreach($sliderImages as $index => $img)
-                        <img src="{{ Storage::url($img) }}" alt="Hero Image {{ $index+1 }}" class="hero-slide {{ $index == 0 ? 'active' : '' }}">
-                    @endforeach
-                    <div class="slider-dots" style="grid-area: 1/1; align-self: end; z-index: 10; position: relative; padding-bottom: 12px;">
-                        @foreach($sliderImages as $index => $img)
-                            <span class="slider-dot {{ $index == 0 ? 'active' : '' }}" onclick="goToSlide({{ $index }})"></span>
-                        @endforeach
-                    </div>
-                </div>
-            @elseif(count($sliderImages) == 1)
-                <img src="{{ Storage::url($sliderImages[0]) }}" alt="Hero Image" class="hero-slide active">
-            @else
-                <img src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?q=80&w=1200&auto=format&fit=crop" alt="Pembangunan Profesional" class="hero-slide active">
-            @endif
-        </div>
-    </section>
+    @if(count($sliderImages) > 1)
+    <div class="slider-dots">
+        @foreach($sliderImages as $index => $img)
+            <span class="slider-dot {{ $index == 0 ? 'active' : '' }}" onclick="goToSlide({{ $index }})"></span>
+        @endforeach
+    </div>
+    @endif
+</section>
+
+<div class="home-container">
 
     <!-- Sambutan Ketua -->
     <section class="sambutan-section">
