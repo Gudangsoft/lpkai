@@ -302,6 +302,47 @@
         line-height: 1.4;
     }
 
+    /* Berita Cards */
+    .berita-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .berita-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        transition: var(--transition);
+    }
+    .berita-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-md);
+    }
+    .berita-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .berita-body {
+        padding: 24px;
+    }
+    .berita-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--gold, var(--primary-light));
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        display: block;
+    }
+    .berita-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--text-dark);
+        line-height: 1.4;
+    }
+
     /* Bottom Grid (Kontak, Map) */
     .info-grid {
         display: grid;
@@ -568,6 +609,7 @@
     /* ── Tablet (≤992px) ─────────────────────────────── */
     @media (max-width: 992px) {
         .pub-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .berita-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
     }
 
     /* ── Mobile Landscape / Tablet kecil (≤768px) ───── */
@@ -585,6 +627,7 @@
         .section-title { font-size: 1.6rem; }
 
         .pub-grid { grid-template-columns: 1fr; gap: 20px; }
+        .berita-grid { grid-template-columns: 1fr; gap: 20px; }
 
         .info-grid { grid-template-columns: 1fr; }
 
@@ -614,6 +657,9 @@
 
         .pub-body { padding: 16px; }
         .pub-title { font-size: 1rem; }
+
+        .berita-body { padding: 16px; }
+        .berita-title { font-size: 1rem; }
 
         .logo-track { gap: 24px; }
         .logo-item { height: 30px; }
@@ -760,6 +806,36 @@
         </div>
         <div style="text-align: center; margin-top: 20px;">
             <a href="{{ route('publikasi') }}" class="btn-outline">Lihat Semua Publikasi</a>
+        </div>
+    </section>
+    @endif
+
+    {{-- ═══ BERITA TERKINI ═══ --}}
+    @if($beritas && count($beritas) > 0)
+    <section class="berita-recent">
+        <div class="section-header">
+            <h2 class="section-title">Berita Terkini</h2>
+        </div>
+        <div class="berita-grid">
+            @foreach($beritas as $b)
+            <article class="berita-card" style="cursor:pointer;" onclick="window.location='{{ route('berita.show', $b->slug) }}'">
+                @if($b->gambar)
+                <img src="{{ Storage::url($b->gambar) }}" alt="{{ $b->judul }}" class="berita-img">
+                @else
+                <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=600&auto=format&fit=crop" class="berita-img">
+                @endif
+                <div class="berita-body">
+                    <span class="berita-tag">{{ $b->tanggal ? $b->tanggal->translatedFormat('d F Y') : '' }}</span>
+                    <h3 class="berita-title">{{ Str::limit($b->judul, 60) }}</h3>
+                    <a href="{{ route('berita.show', $b->slug) }}" style="color: var(--primary-light); font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                        Baca Selengkapnya <i class="fas fa-arrow-right" style="font-size: 0.8rem; margin-left: 4px;"></i>
+                    </a>
+                </div>
+            </article>
+            @endforeach
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{{ route('berita') }}" class="btn-outline">Lihat Semua Berita</a>
         </div>
     </section>
     @endif

@@ -83,6 +83,9 @@
                         </a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita*') ? 'active' : '' }}">
+                    <i class="fas fa-bullhorn"></i> Berita
+                </a></li>
                 <li><a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}">
                     <i class="fas fa-users-cog"></i> Pengguna
                 </a></li>

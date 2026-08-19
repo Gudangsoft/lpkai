@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
 use App\Models\Layanan;
 use App\Models\Pengalaman;
 use App\Models\Profile;
@@ -19,7 +20,8 @@ class BerandaController extends Controller
         $publikasis = Publikasi::aktif()->whereNotIn('kategori', ['Jurnal Ilmiah'])->latest()->take(3)->get();
         $journals   = Publikasi::aktif()->where('kategori', 'Jurnal Ilmiah')->latest()->take(3)->get();
         $kliens     = \App\Models\KlienMitra::aktif()->get();
+        $beritas    = Berita::aktif()->latest()->take(3)->get();
 
-        return view('beranda', compact('profile', 'layanans', 'pengalamans', 'testimonis', 'publikasis', 'journals', 'kliens'));
+        return view('beranda', compact('profile', 'layanans', 'pengalamans', 'testimonis', 'publikasis', 'journals', 'kliens', 'beritas'));
     }
 }

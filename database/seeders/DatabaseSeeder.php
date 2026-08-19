@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             KlienMitraSeeder::class,
             TestimoniSeeder::class,
             PublikasiSeeder::class,
+            BeritaSeeder::class,
         ]);
     }
 }
