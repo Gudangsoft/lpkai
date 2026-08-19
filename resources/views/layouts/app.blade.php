@@ -153,24 +153,44 @@
                         </div>
                     </li>
                     <li>
-                        <i class="fas fa-phone-alt"></i> 
+                        <i class="fas fa-phone-alt"></i>
                         <div>
                             <strong style="color:var(--gold);">Telepon</strong><br>
-                            {!! isset($profile) && $profile->telepon ? nl2br(e($profile->telepon)) : '+6224-6705577 <br> +6224-6701321' !!}
+                            @php
+                                $teleponRaw = isset($profile) && $profile->telepon ? $profile->telepon : "+6224-6705577\n+6224-6701321";
+                                $teleponLines = preg_split('/\r\n|\r|\n/', trim($teleponRaw));
+                            @endphp
+                            @foreach($teleponLines as $i => $line)
+                                @if($i > 0)<br>@endif
+                                @php
+                                    $waDigits = preg_replace('/[^0-9]/', '', $line);
+                                    if (Str::startsWith($waDigits, '0')) {
+                                        $waDigits = '62' . substr($waDigits, 1);
+                                    } elseif (! Str::startsWith($waDigits, '62')) {
+                                        $waDigits = '62' . $waDigits;
+                                    }
+                                @endphp
+                                <a href="https://wa.me/{{ $waDigits }}" target="_blank" rel="noopener" class="footer-contact-link">{{ $line }}</a>
+                            @endforeach
                         </div>
                     </li>
                     <li>
-                        <i class="fas fa-envelope"></i> 
+                        <i class="fas fa-envelope"></i>
                         <div>
                             <strong style="color:var(--gold);">Email</strong><br>
-                            {{ isset($profile) && $profile->email ? $profile->email : 'lppsp_semarang@yahoo.com' }}
+                            @php $emailVal = isset($profile) && $profile->email ? $profile->email : 'lppsp_semarang@yahoo.com'; @endphp
+                            <a href="mailto:{{ $emailVal }}" class="footer-contact-link">{{ $emailVal }}</a>
                         </div>
                     </li>
                     <li>
-                        <i class="fas fa-globe"></i> 
+                        <i class="fas fa-globe"></i>
                         <div>
                             <strong style="color:var(--gold);">Website</strong><br>
-                            {{ isset($profile) && $profile->website ? $profile->website : 'lppspsemarang.org' }}
+                            @php
+                                $webVal = isset($profile) && $profile->website ? $profile->website : 'lppspsemarang.org';
+                                $webHref = Str::startsWith($webVal, ['http://', 'https://']) ? $webVal : 'https://' . $webVal;
+                            @endphp
+                            <a href="{{ $webHref }}" target="_blank" rel="noopener" class="footer-contact-link">{{ $webVal }}</a>
                         </div>
                     </li>
                 </ul>

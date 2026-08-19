@@ -322,6 +322,8 @@ textarea.form-control { resize: vertical; min-height: 140px; }
 .footer h4 { color: white; font-weight: 700; margin-bottom: 18px; font-size: 1.1rem; }
 .footer-contact li { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; font-size: .9rem; opacity: .9; }
 .footer-contact li i { margin-top: 4px; color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
+.footer-contact-link { transition: var(--transition); }
+.footer-contact-link:hover { color: var(--gold); text-decoration: underline; }
 .footer-map-container iframe { width: 100% !important; height: 100% !important; border: 0 !important; }
 .footer-map-btn {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
