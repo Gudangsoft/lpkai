@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
     @if($layoutProfile && $layoutProfile->favicon)
         <link rel="icon" type="image/x-icon" href="{{ Storage::url($layoutProfile->favicon) }}">
         <link rel="shortcut icon" href="{{ Storage::url($layoutProfile->favicon) }}">
@@ -207,7 +207,7 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}?v={{ filemtime(public_path('js/app.js')) }}"></script>
 @stack('scripts')
 </body>
 </html>
