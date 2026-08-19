@@ -199,12 +199,13 @@
                     {{ $profile->singkatan ?? 'LPPSP' }}. Semua hak dilindungi.
                 @endif
             </p>
-            <span class="footer-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-                <i class="fas fa-arrow-up"></i> Kembali ke Atas
-            </span>
         </div>
     </div>
 </footer>
+
+<button type="button" id="backToTop" class="back-to-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke Atas" aria-label="Kembali ke Atas">
+    <i class="fas fa-arrow-up"></i>
+</button>
 
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('scripts')

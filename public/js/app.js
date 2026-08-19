@@ -6,6 +6,14 @@ if (navbar) {
     });
 }
 
+// Floating back-to-top button
+const backToTop = document.getElementById('backToTop');
+if (backToTop) {
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('show', window.scrollY > 400);
+    });
+}
+
 // Mobile menu toggle
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
