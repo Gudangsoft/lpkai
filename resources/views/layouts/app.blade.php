@@ -144,7 +144,7 @@
                     <li>
                         <i class="fas fa-phone-alt"></i> 
                         <div>
-                            <strong style="color:var(--gold);">Telepon / Fax</strong><br>
+                            <strong style="color:var(--gold);">Telepon</strong><br>
                             {!! isset($profile) && $profile->telepon ? nl2br(e($profile->telepon)) : '+6224-6705577 <br> +6224-6701321' !!}
                         </div>
                     </li>
