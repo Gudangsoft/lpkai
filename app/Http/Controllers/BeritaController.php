@@ -29,8 +29,9 @@ class BeritaController extends Controller
         $related = Berita::aktif()
             ->where('id', '!=', $berita->id)
             ->latest()
-            ->take(3)
+            ->take(5)
             ->get();
-        return view('berita-detail', compact('berita', 'related'));
+        $profile = Profile::first();
+        return view('berita-detail', compact('berita', 'related', 'profile'));
     }
 }
